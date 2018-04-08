@@ -1,0 +1,121 @@
+<include file="Common/head"/>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>管理员列表</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#">选项1</a>
+                        </li>
+                        <li><a href="#">选项2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <!-- Example Events -->
+                        <div class="example-wrap">
+                            <div class="example">
+                                <div class="btn-group hidden-xs" id="exampleToolbar" role="group">
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-heart" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <table id="exampleTableToolbar" data-toggle="table" data-pagination="true" data-mobile-responsive="true" data-classes="table table-no-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th data-checkbox="true"></th>
+                                            <th data-sortable="true">ID</th>
+                                            <th>NAME</th>
+                                            <th>PASS</th>
+                                            <th>加入时间</th>
+                                            <th>状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <volist name="data" id="user">
+                                            <tr>
+                                                <td><input type="checkbox" name="" id=""></td>
+                                                <td>{$user[id]}</td>
+                                                <td><a href="javascript:" onclick="users({$user[id]})" data-toggle="modal" data-target="#user_info">{$user[name]}</a></td>
+                                                <td>{$user[pass]}</td>
+                                                <td>{:date('Y-m-d H:i:s', $user[time])}</td>
+                                                <if condition="$user[statu] eq 0">
+                                                    <td><span class="btn btn-success">开启</span></td>
+                                                <else/>
+                                                    <td><span class="btn btn-danger">黑名单</span></td>
+                                                </if>
+                                                <td><a href="{:U('reset', array('id'=>$user['id']))}" class="glyphicon glyphicon-pencil"></a></td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Example Events -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+
+<script>
+    function users(id){
+        $.post('{:U("ajax_user_info")}',{id:id},function(data){
+
+            if (data==0) {
+                $('#Users').html('<h3>用户信息缺失</h3>');
+
+            } else {
+                $('#Users').html(data);
+
+            }
+        });
+    }
+
+</script>
+
+    <div id="user_info" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">CLose</span>
+                    </button>
+                    <h4 class="modal-title">用户基本信息</h4>
+                </div>
+                <div class="modal-body" id="Users">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <include file="Common/javascripts"/>
+
+</body>
+</html>

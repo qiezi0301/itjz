@@ -1,0 +1,20 @@
+<div class="row">
+	<div class="col-md-4">
+		<div class="thumbnail">
+			<img src="__UPLOADS__/{$data[img]}" alt="...">
+		</div>
+	</div>
+	<div class="col-md-8">
+		<h1>{$data[zsname]}</h1>
+		<h3>
+			<if condition="$data[sex] eq 0">
+				女
+				<else/>
+				男
+			</if>
+		</h3>
+		<p>{$data[info]}</p>
+		<h3>{:date('Y-m-d', $data['birthday'])}</h3>
+		<h3>{$data[sheng]}{$data[area]}{$data[city]}</h3>
+	</div>
+</div>

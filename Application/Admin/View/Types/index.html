@@ -1,0 +1,152 @@
+<include file="Common/head"/>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>分类列表</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <!-- Example Events -->
+                        <div class="example-wrap">
+                            <div class="example">
+                                <div class="btn-group hidden-xs" id="exampleToolbar" role="group">
+                                    <button type="button" class="btn btn-outline btn-default" data-path="0," data-id="0" data-cname="添加顶级分类" data-toggle="modal" data-target="#add_types">
+                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-heart" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <table id="exampleTableToolbar" data-toggle="table"  data-pagination="true" data-page-size="10" data-mobile-responsive="true" data-striped="true" >
+                                    <thead>
+                                        <tr class="success">
+                                            <th data-checkbox="true" data-field="全选"></th>
+                                            <th>ID</th>
+                                            <th>CNAME</th>
+                                            <th data-width="100px" data-align="center">添加子类</th>
+                                            <th>INFO</th>
+                                            <th>PID</th>
+                                            <th>PATH</th>
+                                            <th data-width="100px">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <volist name="data" id="user">
+                                            <tr>
+                                                <td><input type="checkbox" name="" id=""></td>
+                                                <td>{$user[id]}</td>
+                                                <?php
+                                                    $arr=explode(',',$user['path']);
+                                                    array_pop($arr);
+                                                    $size=count($arr);
+
+                                                ?>
+                                                <td>{:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $size-1)}{:str_repeat('|====', $size-1)}{$user[cname]}</td>
+                                                <if condition="$size eq 3">
+                                                    <td class="glyphicon glyphicon-plus"></td>
+                                                <else />
+                                                    <td><a href="javascript:" data-path="{$user[path]}{$user[id]}," data-id="{$user[id]}" data-cname="添加&nbsp;&nbsp;《{$user[cname]}》&nbsp;&nbsp;子类" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_types"></a></td>
+                                                </if>
+                                                <td>{$user[info]}</td>
+                                                <td>{$user[pid]}</td>
+                                                <td>{$user[path]}</td>
+                                                <td><a href="{:U('edit', array('id'=>$user['id']))}" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('delete', array('id'=>$user['id']))}" class="glyphicon glyphicon-trash"></a></td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Example Events -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+
+
+
+    <div id="add_types" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">CLose</span>
+                    </button>
+                    <h3 class="modal-title" name="pname">添加分类</h3>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post" class="form-horizontal" id="signupForm" action="{:U('insert')}">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">CNAME</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="cname" id="cname" class="form-control" required>
+                                <input type="hidden" name="pid" value="0">
+                                <input type="hidden" name="path" value="0,">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">INFO</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="info" id="info" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit">提交</button>
+                                <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <include file="Common/javascripts"/>
+    <script>
+
+
+        $('#add_types').on('show.bs.modal',function (event) {
+            var btnThis = $(event.relatedTarget); //触发事件的按钮
+            var modal = $(this);  //当前模态框
+            var modalId = btnThis.data('id');   //解析出data-id的内容
+            var modalPath = btnThis.data('path');   //解析出data-path的内容
+            var modalCname = btnThis.data('cname');   //解析出data-Cname的内容
+            modal.find("input[name=pid]").val(modalId);
+            modal.find("input[name=path]").val(modalPath);
+            modal.find("h3[name=pname]").show().html(modalCname);
+        });
+
+        $().ready(function() {
+            // 在键盘按下并释放及提交后验证提交表单
+            $("#signupForm").validate({
+                rules: {
+                  cname: "required",
+                  info: "required"
+                },
+                messages: {
+                  cname: "请输入分类名称",
+                  info: "请输入分类信息"
+                }
+            })
+        });
+
+    </script>
+
+</body>
+</html>

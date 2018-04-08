@@ -1,0 +1,102 @@
+<include file="Common/head"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>轮播图列表</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <!-- Example Events -->
+                        <div class="example-wrap">
+                            <div class="example">
+
+                                <div class="btn-group hidden-xs" id="exampleToolbar" role="group">
+                                    <a href="{:U('Sys/lunbo_add')}" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-refresh" id="refresh" onclick="location.href=location.href" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-outline btn-default">
+                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <table id="exampleTableToolbar" data-mobile-responsive="true">
+                                    <thead>
+                                        <tr>
+                                            <th data-checkbox="true"></th>
+                                            <th>ID</th>
+                                            <th>NAME</th>
+                                            <th>Sort</th>
+                                            <th>img</th>
+                                            <th>Url</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <volist name="data" id="admin">
+                                            <tr>
+                                                <td><input type="checkbox" name="" id=""></td>
+                                                <td>{$admin[id]}</td>
+                                                <td>{$admin[name]}</td>
+                                                <td><input type="text" onblur="sorts(this,{$admin[id]})" value="{$admin[sort]}"></td>
+                                                <td><img src="{$admin[img]}"></td>
+                                                <td>{$admin[url]}</td>
+                                                <td><a href="{:U('lunbo_edit',array('id'=>$admin[id]))}" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="glyphicon glyphicon-trash" onclick="dels(this,{$admin[id]})"></a></td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- End Example Events -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <include file="Common/javascripts"/>
+
+    <script>
+
+    function sorts(obj,id){
+        val=$(obj).val();
+
+        $.post('{:U("ajax_sorts")}', {id:id, sort:val},function(data){
+            if (data==1) {
+                $("#refresh").click();
+            }
+        });
+    }
+
+    function dels(obj,id){
+        //发送ajax请求
+        $.post('{:U("ajax_dels")}',{id:id},function(data){
+            if (data==1) {
+                $(obj).parent().parent().remove();
+            } else {
+                alert('删除失败');
+            }
+        });
+    }
+    </script>
+
+</body>
+</html>
