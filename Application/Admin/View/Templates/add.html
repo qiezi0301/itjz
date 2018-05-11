@@ -17,7 +17,7 @@
         <!-- Panel Other -->
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>添加商品</h5>
+                <h5>添加模版</h5>
                 <div class="ibox-tools">
                     <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-wrench"></i> </a>
@@ -26,11 +26,11 @@
             </div>
 
             <div class="ibox-content">
-                <form action="{:U('Sys/lunbo_insert')}" method="post" class="form-horizontal" id="form">
+                <form action="{:U('Templates/insert')}" method="post" class="form-horizontal" id="form">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">标题</label>
                         <div class="col-sm-8">
-                            <input type="text" name="name" id="name" class="form-control required" autocomplete="off">
+                            <input type="text" name="name" id="name" class="form-control" required="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
@@ -44,7 +44,7 @@
                         <div class="col-sm-8">
                             <div class="row">
                                 <div  class="col-sm-4">
-                                    <select id="cat_id" name="cat_id" class="form-control chosen-select" onchange="changeCats(this.value,'modals')">
+                                    <select id="cat_id" name="cat_id" class="form-control chosen-select" onchange="changeCats(this.value,'modals')" required>
                                         <option value="">请选择分类</option>
                                         <option value="1">行业</option>
                                         <option value="2">商城</option>
@@ -55,7 +55,7 @@
                                     </select>
                                 </div>
                                 <div  class="col-sm-4">
-                                    <select id="cat_sub_id" name="cat_sub_id" class="form-control chosen-select">
+                                    <select id="cat_sub_id" name="cat_sub_id" class="form-control chosen-select" required>
                                         <option value="">请选择子分类</option>
                                         <option value="1">行业</option>
                                     </select>
@@ -84,7 +84,7 @@
                                         <div class="uploadBtn">开始上传</div>
                                     </div>
                                 </div>
-                                <input class="form-control required" id="image" name="logo_big">
+                                <input class="form-control required" id="image" name="logo_big" required>
                             </div>
                         </div>
                     </div>
@@ -110,7 +110,7 @@
                                         <div class="uploadBtn">开始上传</div>
                                     </div>
                                 </div>
-                                <input id="images" name="imgs" class="form-control required">
+                                <input id="images" name="imgs" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                                 <div class="btns">
                                  <div id="attach"></div>
                                  <button id="ctlBtn" class="btn btn-default">开始上传</button>
-                                 <input name="zip" id="zip" class="form-control required">
+                                 <input name="zip" id="zip" class="form-control" required>
                              </div>
                          </div>
                      </div>
@@ -147,7 +147,7 @@
                     <div class="col-sm-8">
                         <div class="row">
                             <div class="col-md-3">
-                                <input type="text" name="points" id="points" class="form-control" >
+                                <input type="text" name="points" id="points" class="form-control" required>
                             </div>
                             <div class="col-md-5">
                                  <span class="help-block m-b-none" id="points_description"> <i class="fa fa-info-circle"></i> 适当的下载积分，赚取更多积分。</span>
@@ -180,17 +180,17 @@
                     <div class="col-sm-8">
                         <div class="row">
                             <div class="checkbox i-checks">
-                                <label> <input type="checkbox" value="option1" name="color_id[]" checked="" > <i></i> 蓝色</label>
-                                <label> <input type="checkbox" value="option2" name="color_id[]" > <i></i> 红色 </label>
-                                <label> <input type="checkbox" value="option3" name="color_id[]" > <i></i> 橙色 </label>
-                                <label> <input type="checkbox" value="option4" name="color_id[]" > <i></i> 黄色 </label>
-                                <label> <input type="checkbox" value="option5" name="color_id[]" > <i></i> 绿色 </label>
-                                <label> <input type="checkbox" value="option6" name="color_id[]" > <i></i> 黑白 </label>
-                                <label> <input type="checkbox" value="option7" name="color_id[]" > <i></i> 紫色 </label>
-                                <label> <input type="checkbox" value="option8" name="color_id[]" > <i></i> 灰色 </label>
-                                <label> <input type="checkbox" value="option9" name="color_id[]" > <i></i> 黑色 </label>
-                                <label> <input type="checkbox" value="option10" name="color_id[]" > <i></i> 白色 </label>
-                                <label> <input type="checkbox" value="option11" name="color_id[]" > <i></i> 粉色 </label>
+                                <label> <input type="checkbox" value="10" name="color_id[]" checked="" > <i></i> 蓝色</label>
+                                <label> <input type="checkbox" value="20" name="color_id[]" > <i></i> 红色 </label>
+                                <label> <input type="checkbox" value="30" name="color_id[]" > <i></i> 橙色 </label>
+                                <label> <input type="checkbox" value="40" name="color_id[]" > <i></i> 黄色 </label>
+                                <label> <input type="checkbox" value="50" name="color_id[]" > <i></i> 绿色 </label>
+                                <label> <input type="checkbox" value="60" name="color_id[]" > <i></i> 黑白 </label>
+                                <label> <input type="checkbox" value="70" name="color_id[]" > <i></i> 紫色 </label>
+                                <label> <input type="checkbox" value="80" name="color_id[]" > <i></i> 灰色 </label>
+                                <label> <input type="checkbox" value="90" name="color_id[]" > <i></i> 黑色 </label>
+                                <label> <input type="checkbox" value="100" name="color_id[]" > <i></i> 白色 </label>
+                                <label> <input type="checkbox" value="101" name="color_id[]" > <i></i> 粉色 </label>
                             </div>
                         </div>
                     </div>
@@ -198,13 +198,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">来源</label>
                     <div class="col-sm-2">
-                        <input type="text" name="source" class="form-control" placeholder="http://www.itjz.cn">
+                        <input type="text" name="source" class="form-control" placeholder="http://www.itjz.cn" value="http://www.itjz.cn">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label">QQ</label>
                     <div class="col-sm-2">
-                        <input type="text" id="qq_num" name="qq_num" class="form-control" placeholder="请填写本人的QQ">
+                        <input type="text" id="qq_num" name="qq_num" class="form-control" placeholder="请填写本人的QQ" value="188316065">
                     </div>
                 </div>
 
@@ -243,42 +243,12 @@
 
     $().ready(function(){
         var e = "<i class='fa fa-times-circle'></i> ";
-        var validator = $("#signupForm").validate({
-            ignore: [],
-            rules: {
-                name: "required",
-                info: "required",
-                price: {
-                    required: true,
-                    number: true
-                },
-                num: {
-                    required: true,
-                    number: true
-                },
-                img: "required"
-            },
-            messages: {
-                name: e + "请输入商品名称",
-                info: e + "请输入商品信息",
-                price: {
-                    required: e + "请输入商品价格",
-                    number: e + "请输入1-9有效的数字"
-                },
-                num: {
-                    required: e + "请输入商品数量",
-                    number: e + "请输入1-9有效的数字"
-                },
-                img: e + "请上传图片"
-            }
-        });
         $("#image").change(function(){
                 //验证单个元件是否成功
                 validator.element(this);
             });
     });
 </script>
-
 
 <!-- 自定义样式 -->
 <script src="__JS__/plugins/iCheck/icheck.min.js"></script>

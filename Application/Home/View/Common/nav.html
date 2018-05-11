@@ -1,0 +1,137 @@
+        <div id="site_nav" class="site_nav">
+            <div  class="sn_container w clearfix">
+                <ul class="tg_tools fr">
+                    <li class="no-hover">
+                        <a href="{:U('member/pay')}" rel="nofollow" class="head_pay_btn common_color" style="color:#5188a6">充值积分</a>
+                        <a href="{:U('member/pay#form_pay3')}" rel="nofollow" class="head_pay_btn common_color" style="color:#5188a6">充值火币</a>
+                        <a href="{:U('member/pay#form_pay2')}" rel="nofollow" class="head_pay_btn common_color" style="color:#f60">充值会员</a>
+                    </li>
+                    <li class="no-hover" style="display: none">
+                        <a id="msg_notify" class="msg_notify" rel="nofollow" href="{:U('Member/message')}"></a>
+                    </li>
+                    <li class='box_color nav_home'>
+                        <span><a href="{:U('Member/info')}" rel="nofollow">个人中心</a></span><b class="icon"></b>
+                        <ul>
+                            <li><a href="{:U('Member/info')}" rel="nofollow"><span>我的主页</span></a></li>
+                            <li><a href="{:U('Member/set')}" rel="nofollow"><span>个人设置</span></a></li>
+                            <li><a href="{:U('Member/downloads')}" rel="nofollow"><span>下载记录</span></a></li>
+                            <li><a href="{:U('Member/collects')}" rel="nofollow"><span>我的收藏</span></a></li>
+                            <li><a href="{:U('Member/sign')}" rel="nofollow"><span>我的签到</span></a></li>
+                            <li><a href="http://www.sucaihuo.com/Download/logout?r=www.sucaihuo.com/help/contact" rel="nofollow"><span>退出登录</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="tg-line icon"></li>
+                    <li class='box_color'>
+                        <span>帮助中心</span><b class="icon"></b>
+                        <ul>
+                            <li><a href="{:U('Help/points')}"><span>积分获取</span></a></li>
+                            <li><a href="{:U('Help/contact')}"><span>联系我们</span></a></li>
+                            <li><a href="{:U('Help/index')}"><span>关于我们</span></a></li>
+                            <li><a href="{:U('Help/job')}"><span>招纳贤士</span></a></li>
+                        </ul>
+                    </li>
+                    <li class="tg-line icon"></li>
+                    <li class='box_color'>
+                        <span><a href="{:U('uploads/index')}" class="common_color">上传资源</a></span><b class="icon"></b>
+                        <ul>
+                            <li><a href="{:U('Member/uploads')}"><span>我的上传</span></a></li>
+                            <li><a href="{:U('Uploads/js')}"><span>上传特效</span></a></li>
+                            <li><a href="{:U('Uploads/templates')}"><span>上传模板</span></a></li>
+                            <li><a href="{:U('Uploads/php')}"><span>上传PHP</span></a></li>
+                            <!--                                                    <li><a href="http://www.sucaihuo.com/uploads/source"><span>上传源码</span></a></li>-->
+                        </ul>
+                    </li>
+                    <li class="tg-line icon"></li>
+                    <li class="no-hover">
+                        <a class="head_pay_btn common_color" href="{:U('Tools/index')}" style="color:red">工具箱</a>
+                    </li>
+                </ul>
+                <ul class="tg_tools fl" id="login_area" style="display: block;" >
+                    <li class="tg_tools_home no-hover">
+                        <i class="icon-more"></i>
+                        <span><a href="{:U('Index/index')}">ITJZ首页</a></span>
+                    </li>
+
+                    <li class="no-hover nologin">
+                        <span><a href="http://www.sucaihuo.com/Index/login/type/qq" rel="nofollow"><img alt="Connect_logo_6.png" src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_6.png" style="position: relative;top:3px;"/></a></span>
+                    </li>
+                    <!-- <li class="no-hover nologin"><span><a href="http://www.sucaihuo.com/login.html" class="sn_login">登录</a></span></li>-->
+                    <li class="no-hover hide haslogin">
+                        <span><a href="http://www.sucaihuo.com/member/info.html"><font class="sn_login username common_color" id='head_username'></font></a></span>
+                        <i class="icon_vip"></i>
+                    </li>
+                    <li class="tg-line icon"></li>
+                    <li class="no-hover nologin">
+                        <span><a href="{:U('Reg/index')}" rel="nofollow">注册</a></span>
+                    </li>
+                    <li class="no-hover hide haslogin">
+                        <span><a href="http://www.sucaihuo.com/Download/logout?r=www.sucaihuo.com/help/contact" rel="nofollow">退出</a></span>
+                    </li>
+                    <li class='box_color nav_home' id="nav_login">
+                        <span><a href="{:U('Login/index')}" class="sn_login common_color" rel="nofollow">登录</a></span><b class="icon"></b>
+                        <ul>
+                            <li><a href="http://www.sucaihuo.com/Index/login/type/sina" rel="nofollow"><span>新浪微博</span></a></li>
+                            <li><a href="javascript:;" onclick="showWeinxiLoginBox($(this))" rel="nofollow"><span>微信登录</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="header">
+            <div class="tg_tools_home w">
+                <div class="bbs_enter">
+                    <a class="bbs-banner"  href="{:U('Member/pay')}" rel="nofollow" target="_blank"><img src="__IMG__/other/banner.jpg" alt="扒模板"/></a>
+                </div>
+                <div class="logo">
+                    <a class="logo-bd"  href="http://www.sucaihuo.com"><img src="__IMG__/logo.png" alt="素材火"/></a>
+                </div>
+                <form action="http://www.sucaihuo.com/search" method="GET" id="form_search" name="form_search" onsubmit="return searchSub()">
+                    <div id='search' class="search">
+                        <div class="search_area">
+                            <input type='submit' value='搜 索'  class='btn_search common_bgcolor'/>
+                            <div class="search_select">
+                                <span class="icon-search"></span>
+                            </div>
+                            <input type='text' value='请输入搜索内容'  class="search_input"  autocomplete="off" id="search_input" data-default="请输入搜索内容" onblur="checkInputBlur($(this))"  onfocus="checkInputFocus($(this))" onkeyup="checkInputKeyup($(this))" />
+                            <input type="hidden" name="keyword" id="keyword_head" value="" autocomplete="off"/>
+                            <input type='hidden' name='mtype' id='mtype_index' value='' autocomplete="off"/>
+                        </div>
+                        <div class="search_box hide" id="search_box"></div>
+                        <div class='search_keywords' >
+                            <span>热门搜索：</span>
+                            <a href="http://www.sucaihuo.com/source/213-0-0-0-0-0" class="red">小程序</a>
+
+                            <a href="http://www.sucaihuo.com/php/217-0-0-0" class="red">支付</a>
+                            <a href="http://www.sucaihuo.com/video/172-0-0">python</a>
+                            <a href="http://www.sucaihuo.com/php/218-0-0-0" class="red">微信</a>
+                            <a href="http://www.sucaihuo.com/templates/4-0-0-0-0-0">商城</a>
+                            <a href="http://www.sucaihuo.com/php/173-0-0-0">上传</a>
+                            <a href="http://www.sucaihuo.com/php/127-0-0-0" class="red">Thinkphp</a>
+                            <a href="http://www.sucaihuo.com/templates/0-0-52-0-0-0">响应式</a>
+                            <a href="http://www.sucaihuo.com/source/130-0-0-0-0-0" class="red">分销</a>
+                            <a href="http://www.sucaihuo.com/video/143-0-0" class="red">php视频</a>
+                            <a href="http://www.sucaihuo.com/templates/0-0-108-0-0-0">手机</a>
+                            <a href="http://www.sucaihuo.com/video/157-0-0">WEB前端</a>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div id='nav' class='nav common_bgcolor'>
+            <div class='nav_main clearfix w'>
+                <a href="{:U('Index/index')}" class="menu current">首 页</a>
+                <a href="{:U('Source/index?id=1')}" class="menu">网页特效</a>
+
+                <a href="{:U('Source/index?id=1')}" class="menu">PHP/Mysql</a>
+
+                <a href="{:U('Source/index?id=1')}" class="menu">视频教程</a>
+                <a href="{:U('Source/index?id=1')}" class="menu">网站模板</a>
+                <a href="{:U('Source/index?id=1')}" class="menu" style="display: block;width:88px">整站源码</a>
+                <!--<a href='http://www.sucaihuo.com/course' class="menu">教程大全</a>-->
+                <!--<a href='http://www.sucaihuo.com/soft' class="menu">绿色软件</a>-->
+                <a href="{:U('Source/index?id=1')}" class="menu">拼团</a>
+                <a href="{:U('Source/index?id=1')}" class="menu">话题社区</a>
+                <span class='icon_hot'></span>
+            </div>
+        </div>

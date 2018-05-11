@@ -4,8 +4,7 @@ jQuery(function() {
         $wrap = $('#uploader-demo'),
 
         // 图片容器
-        $queue = $('<ul class="filelist"></ul>')
-            .appendTo( $wrap.find('.queueList') ),
+        $queue = $('<ul class="filelist"></ul>').appendTo( $wrap.find('.queueList') ),
 
         // 状态栏，包括进度和控制按钮
         $statusBar = $wrap.find('.statusBar'),
@@ -64,14 +63,11 @@ jQuery(function() {
 
     // 实例化
     uploader = WebUploader.create({
-
         pick: {
             id: '#singlefilePicker',
             innerHTML: '点击选择图片',
             multiple: false
         },
-
-
 
         accept: {
             title: 'Images',
@@ -116,12 +112,7 @@ jQuery(function() {
 
     // 当有文件添加进来时执行，负责view的创建
     function addFile( file ) {
-        var $li = $( '<li id="' + file.id + '">' +
-                '<p class="title">' + file.name + '</p>' +
-                '<p class="imgWrap"></p>'+
-                '<p class="progress"><span></span></p>' +
-                '</li>' ),
-
+        var $li = $( '<li id="' + file.id + '">' + '<p class="title">' + file.name + '</p>' + '<p class="imgWrap"></p>'+ '<p class="progress"><span></span></p>' + '</li>' ),
             $btns = $('<div class="file-panel">' + '<span class="cancel">删除</span></div>').appendTo( $li ),
             $prgress = $li.find('p.progress span'),
             $wrap = $li.find( 'p.imgWrap' ),
@@ -379,6 +370,7 @@ jQuery(function() {
         updateTotalProgress();
     };
 
+    // 当有文件添加进来的时候
     uploader.onFileQueued = function( file ) {
         if (fileCount!=0) {
             //通过新上传的文件删除上一个添加的

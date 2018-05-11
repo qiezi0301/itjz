@@ -6,10 +6,17 @@ class TypesController extends Controller {
 
 		//实例化数据模型
 		$model=M('classs');
+        $tot=$model->count();
+
+        //实例化分页
+        $page=new \Think\Page($tot, 20);
+
+        //获取当前页面
+        $p=isset($_GET['p'])?$_GET['p']:1;
 		//查询数据
-		$this->data=$model->field(" * ,concat(path,id) pp")->order('pp asc')->select();
+		$this->data=$model->field(" * ,concat(path,id) pp")->page($p)->limit(20)->order('pp asc')->select();
 
-
+        $this->page=$page->show();
         $this->display();
     }
 

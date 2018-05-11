@@ -1,0 +1,20 @@
+<td><input type="checkbox" name="" id="check"></td>
+<td class="check_id">{$data[id]}</td>
+<td>{$data[username]}</td>
+<td>{$data[password]}</td>
+<td>{:date('Y-m-d H:i:s', $data[time])}</td>
+<if condition="$data['logintime']">
+    <td>{:date('Y-m-d H:i:s', $data[logintime])}</td>
+    <else />
+    <td>未登录过</td>
+</if>
+<td>{$data['loginnum']}</td>
+<if condition="$data[statu] eq 0">
+    <td><span class="btn btn-info">正常</span></td>
+    <else/>
+    <td><span class="btn btn-danger">禁用</span></td>
+</if>
+<td>
+    <span class="glyphicon glyphicon-pencil"onclick="edit({$data[id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+    <span class="glyphicon glyphicon-trash" onclick="del(this,{$data[id]})"></span>
+</td>

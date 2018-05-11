@@ -20,9 +20,9 @@ class CommonController extends Controller {
         }else{// 上传成功
             $file = array_shift($info);
 
-            $image=new \Think\Image();
+            // $image=new \Think\Image();
             // //打开文件-并进行缩放
-            $image->open('./Uploads/' . $dir . '/'.$file['savepath'].$file['savename'])->thumb(100,100)->save('./Uploads/' . $dir . '/'.$file['savepath'].'sm_'.$file['savename']);
+            // $image->open('./Uploads/' . $dir . '/'.$file['savepath'].$file['savename'])->thumb(100,100)->save('./Uploads/' . $dir . '/'.$file['savepath'].'sm_'.$file['savename']);
 
             return json_encode(array(
                 'url'       => $file['savepath'].$file['savename'],
