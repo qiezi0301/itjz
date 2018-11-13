@@ -1,0 +1,19 @@
+            <div class="member_per">
+                <php>
+                    $php_self=substr($_SERVER['PHP_SELF'],strrpos($_SERVER['PHP_SELF'],'/')+1);
+                </php>
+                <ul class="nav panel">
+                    <li><a <if condition="$php_self eq 'info.html'">class="active"</if> href="{:U('Member/info')}" ><i class="icon-nav icon-tick"></i>我的主页</a></li>
+                    <li><a <if condition="$php_self eq 'order.html'">class="active"</if> href="{:U('Member/order')}" ><i class="icon-nav icon-plan"></i>我的订单</a></li>
+                    <li><a <if condition="$php_self eq 'sign.html'">class="active"</if> href="{:U('Member/sign')}" ><i class="icon-nav icon-resp"></i>我的签到</a></li>
+                    <li><a <if condition="$php_self eq 'downloads.html'">class="active"</if> href="{:U('Member/downloads')}" ><i class="icon-nav icon-wiki"></i>下载记录</a></li>
+                    <li><a <if condition="$php_self eq 'uploads.html'">class="active"</if> href="{:U('Member/uploads')}" ><i class="icon-nav icon-code"></i>我的上传</a></li>
+                    <li><a <if condition="$php_self eq 'comments.html'">class="active"</if> href="{:U('Member/comments')}" ><i class="icon-nav icon-plan"></i>我的评论</a></li>
+                    <li><a <if condition="$php_self eq 'topic.html'">class="active"</if> href="{:U('Member/topic')}" ><i class="icon-nav icon-ques"></i>我的话题</a></li>
+                    <li><a <if condition="$php_self eq 'message.html'">class="active"</if> href="{:U('Member/message')}" ><i class="icon-nav icon-msg"></i>我的消息</a></li>
+    <!--            <li><a <if condition="$php_self eq 'withdraw.html'">class="active"</if> href="{:U('Member/withdraw')}" ><i class="icon-nav icon-addques"></i>我的提现</a></li>-->
+                    <li><a <if condition="$php_self eq 'invitors.html'">class="active"</if> href="{:U('Member/invitors')}" ><i class="icon-nav icon-user"></i>我的下线</a></li>
+                    <!-- <li><a <if condition="$php_self eq 'templates.html'">class="active"</if> href="{:U('Member/templates')}" ><i class="icon-nav icon-flag"></i>我的模板</a></li> -->
+                    <li><a <if condition="$php_self eq 'Member/set.html'">class="active"</if> href="{:U('Member/set')}" ><i class="icon-nav icon-note"></i>我的设置</a></li>
+                </ul>
+            </div>

@@ -18,10 +18,7 @@
                                     <button type="button" class="btn btn-outline btn-default" data-path="0," data-id="0" data-cname="添加顶级分类" data-toggle="modal" data-target="#add_types">
                                         <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
                                     </button>
-                                    <button type="button" class="btn btn-outline btn-default">
-                                        <i class="glyphicon glyphicon-heart" aria-hidden="true"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-outline btn-default">
+                                    <button type="button" class="btn btn-outline btn-default" onclick="alert('禁止批量删除')">
                                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                     </button>
                                 </div>
@@ -35,30 +32,42 @@
                                             <th>INFO</th>
                                             <th>PID</th>
                                             <th>PATH</th>
+                                            <th>推荐</th>
                                             <th data-width="100px">操作</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <volist name="data" id="user">
-                                            <tr>
+                                    <tbody id="add_row">
+                                        <volist name="data" id="vo">
+                                            <tr id="tr{$vo[id]}">
                                                 <td><input type="checkbox" name="" id=""></td>
-                                                <td>{$user[id]}</td>
+                                                <td>{$vo[id]}</td>
                                                 <?php
-                                                    $arr=explode(',',$user['path']);
-                                                    array_pop($arr);
-                                                    $size=count($arr);
+                                                $arr=explode(',',$vo['path']);
+                                                array_pop($arr);
+                                                $size=count($arr);
 
                                                 ?>
-                                                <td>{:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $size-1)}{:str_repeat('|====', $size-1)}{$user[cname]}</td>
-                                                <if condition="$size eq 3">
-                                                    <td class="glyphicon glyphicon-plus"></td>
-                                                <else />
-                                                    <td><a href="javascript:" data-path="{$user[path]}{$user[id]}," data-id="{$user[id]}" data-cname="添加&nbsp;&nbsp;《{$user[cname]}》&nbsp;&nbsp;子类" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_types"></a></td>
+                                                <td>{:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $size-1)}
+                                                <if condition="$size neq 1">
+                                                        ⊢
                                                 </if>
-                                                <td>{$user[info]}</td>
-                                                <td>{$user[pid]}</td>
-                                                <td>{$user[path]}</td>
-                                                <td><a href="{:U('edit', array('id'=>$user['id']))}" class="glyphicon glyphicon-pencil"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="{:U('delete', array('id'=>$user['id']))}" class="glyphicon glyphicon-trash"></a></td>
+                                                {$vo[cname]}</td>
+                                                <if condition="$size eq 3">
+                                                    <td ><span class="glyphicon glyphicon-plus"></span></td>
+                                                <else />
+                                                    <td><a href="javascript:" data-path="{$vo[path]}{$vo[id]}," data-id="{$vo[id]}" data-cname="添加&nbsp;&nbsp;《{$vo[cname]}》&nbsp;&nbsp;子类" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_types"></a></td>
+                                                </if>
+                                                <td>{$vo[info]}</td>
+                                                <td>{$vo[pid]}</td>
+                                                <td>{$vo[path]}</td>
+
+                                                <if condition="$vo[isindex] eq 0">
+                                                    <td><a href="javascript:;" class="label label-danger" onclick="isindex(this,{$vo[id]},0)">否</a></td>
+                                                <else/>
+                                                    <td><a href="javascript:;" class="label label-info"  onclick="isindex(this,{$vo[id]},1)">是</a></td>
+                                                </if>    
+                                                                                            
+                                                <td><span onclick="edit({$vo[id]})" class="glyphicon glyphicon-pencil" data-target="#edit" data-toggle="modal"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span onclick="del(this,{$vo['id']})" class="glyphicon glyphicon-trash"></span></td>
                                             </tr>
                                         </volist>
                                     </tbody>
@@ -75,7 +84,7 @@
     </div>
 
 
-
+    <!-- 添加数据模态框 -->
     <div id="add_types" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -89,12 +98,12 @@
                 </div>
 
                 <div class="modal-body">
-                    <form method="post" class="form-horizontal" id="signupForm" action="{:U('insert')}">
+                    <form method="post" class="form-horizontal" id="add_data" onsubmit="return false">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">CNAME</label>
                             <div class="col-sm-8">
-                                <input type="text" name="cname" id="cname" class="form-control" required>
-                                <input type="hidden" name="pid" value="0">
+                                <input type="text" name="cname" id="cname" class="form-control" required autocomplete="off">
+                                <input type="hidden" id="pid" name="pid" value="0">
                                 <input type="hidden" name="path" value="0,">
                             </div>
                         </div>
@@ -102,13 +111,27 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">INFO</label>
                             <div class="col-sm-8">
-                                <input type="text" name="info" id="info" class="form-control" required>
+                                <input type="text" name="info" id="info" class="form-control" required autocomplete="off">
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
+
+                        <div class="form-group">
+                            <label for="inputType" class="col-sm-2 control-label">包含属性</label>
+                            <div class="col-sm-9">
+                            <foreach name='proplist' item='v'>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="property[]" id="inputType" value="{$v.id}" />{$v.name}             
+                                 </label>
+                                 </foreach>
+                            </div>
+                        </div>
+
+                        <div class="hr-line-dashed"></div>
+                        
                         <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                <button class="btn btn-primary" type="submit">提交</button>
+                                <button class="btn btn-primary" type="submit" onclick="add()">提交</button>
                                 <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
                             </div>
                         </div>
@@ -118,16 +141,59 @@
             </div>
         </div>
     </div>
+
+    <!-- 修改数据模态框 -->
+    <div id="edit" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only" id="edit_close">CLose</span>
+                    </button>
+                    <h3 class="modal-title" name="pname">修改分类</h3>
+                </div>
+
+                <div class="modal-body" id="edit_body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 删除数据模态框 -->
+    <div id="delModal" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only" id="del_close">CLose</span>
+                    </button>
+                    <h3 class="modal-title" name="pname">删除分类</h3>
+                </div>
+
+                <div class="modal-body" id="del_body">
+
+                </div>
+            </div>
+        </div>
+    </div>
     <include file="Common/javascripts"/>
     <script>
-
 
         $('#add_types').on('show.bs.modal',function (event) {
             var btnThis = $(event.relatedTarget); //触发事件的按钮
             var modal = $(this);  //当前模态框
+            modal.find("input[name=cname]").val("");
+            modal.find("input[name=info]").val("");
+
             var modalId = btnThis.data('id');   //解析出data-id的内容
             var modalPath = btnThis.data('path');   //解析出data-path的内容
             var modalCname = btnThis.data('cname');   //解析出data-Cname的内容
+
             modal.find("input[name=pid]").val(modalId);
             modal.find("input[name=path]").val(modalPath);
             modal.find("h3[name=pname]").show().html(modalCname);
@@ -139,14 +205,126 @@
                 rules: {
                   cname: "required",
                   info: "required"
-                },
-                messages: {
+              },
+              messages: {
                   cname: "请输入分类名称",
                   info: "请输入分类信息"
-                }
-            })
+              }
+          })
         });
 
+        //ajax添加分类
+        function add(){
+           //序列化表单数据
+           datas=$("#add_data").serialize();
+           objId = $("input[name=pid]").val();  //找到父类d
+           //发送ajax请求提交数据
+           $.post('{:U("ajax_add")}',{str:datas},function(data){
+            if (data!=0) {
+                if (objId==0) {
+                    //第一个子元素的上面添加数据
+                    $("#add_row").prepend(data);
+                    
+                } else {
+                    //在指定元素下面添加
+                    $("#tr"+objId).after(data);
+                }
+                $(".sr-only").click();
+            } else {
+                alert('添加失败，请重新添加');
+            }
+        }); 
+       }
+
+        //ajax修复数据
+        function edit(id){
+            //获取需要修改的数据
+            $.post("{:U('ajax_edit')}",{id:id},function(data){
+                $("#edit_body").html(data);
+            });
+        }
+
+        //ajax修改数据
+        function save(){
+            data=$("#edit_form").serialize();
+            $.post("{:U('ajax_save')}",{str:data},function(data){
+                if (data!=0) {
+                    ids = $("#idss").val();
+                    $("#tr"+ids).html(data);
+                    $("#edit_close").click();
+                } else {
+                    alert('修改失败');
+                }
+            });
+        }
+
+        //删除数据
+        function del(obj, id){
+            ///动态显示模态框
+            $('#delModal').modal('show');
+            //获取需要删除的数据
+            $('#del_id').val(id);
+            //获取需要删除的数据
+            $.post("{:U('del')}",{id:id},function(data){
+                $("#del_body").html(data);
+            });
+        }
+
+        //ajax删除单条数据
+        function ajax_del(id){
+           //ajax删除数据
+           $.post("{:U('ajax_del')}",{id:id},function(data){
+            if (data==0) {
+                alert("请先删除子分类")
+          } else if (data==1) {
+                //移除数据
+                $("#tr"+id).remove();
+                $("#del_close").click();
+            } else{
+                //删除失败
+                alert('删除失败');
+            }
+          }); 
+       }
+
+       //全选
+       $("#exampleTableToolbar").on("check-all.bs.table", function(e,rows,o){
+            $(':checkbox').parent().parent().addClass('selected');
+       });
+
+       //取消全选
+       $("#exampleTableToolbar").on("uncheck-all.bs.table", function(e,rows,o){
+            $(':checkbox').parent().parent().removeClass('selected');
+       });
+
+       //单选
+       $("#exampleTableToolbar").on("click","#check",function(e,rows,o){
+            $(this).parent().parent().toggleClass('selected');
+       });
+
+        //状态改变
+        function isindex(obj,id,isindex){
+
+            if (isindex==1) {
+                //禁用状态
+                $.post("{:U('ajax_isindex')}",{id:id,isindex:'0'},function(data){
+                    if (data==1) {
+                        $(obj).html('否');
+                        $(obj).addClass('label-danger').removeClass('label-info');
+                        $(obj).attr('onclick','isindex(this,'+id+',0)');
+                    }
+                });
+            } else {
+                //正常状态
+                $.post("{:U('ajax_isindex')}",{id:id,isindex:'1'},function(data){
+                    if (data==1) {
+                        $(obj).html('是');
+                        $(obj).addClass('label-info').removeClass('label-danger');
+                        $(obj).attr('onclick','isindex(this,'+id+',1)');
+                    }
+                });
+            }
+        }
     </script>
 
 </body>

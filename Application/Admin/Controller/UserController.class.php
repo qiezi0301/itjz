@@ -11,7 +11,7 @@ class UserController extends Controller {
 
     		//实例化分页
     		$page=new \Think\Page($tot, 10);
-
+            $page->setConfig('theme', '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
     		//获取当前页面
     		$p=isset($_GET['p'])?$_GET['p']:1;
 
@@ -49,6 +49,19 @@ class UserController extends Controller {
         if ($this->data) {
             echo $this->fetch();
         } else {
+            echo "0";
+        }
+    }
+
+
+    public function ajax_statu(){
+        //实例化数据模型
+        $model=M('User');
+        if ($model->save($_POST)) {
+            # code...
+            echo "1";
+        }else {
+            # code...
             echo "0";
         }
     }

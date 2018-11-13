@@ -1,0 +1,11 @@
+<tr id="tr{$data[id]}" data-index="100">
+	<td class="bs-checkbox"><input data-index="100" type="checkbox" value="{$data[id]}" name="btSelectItem" id="check"></td>
+	<td class="check_id">{$data[id]}</td>
+    <td>{$data.prop_id}</td>
+	<td class="username">{$data[vname]}</td>
+	<td>{:date('Y-m-d H:i:s', $data[addtime])}</td>
+	<td>
+		<span class="glyphicon glyphicon-pencil"onclick="edit({$data[id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="glyphicon glyphicon-trash" onclick="del(this,{$data[id]})"></span>
+	</td>
+</tr>

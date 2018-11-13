@@ -1,15 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>我的模板</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-    <link rel="shortcut icon" href="__IMG__/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="__CSS__/style_version12.css" type="text/css" />
-</head>
+<include file="Common:head" />
 <body>
-    <include file="Common:nav" />
+<include file="Common:nav" />
     <link href="__CSS__/member.css" rel="stylesheet" type="text/css" />
     <div  class="container w clearfix">
         <div class="member_right">
@@ -47,45 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="member_per">
-                <ul class="nav panel">
-                    <li>
-                        <a href="http://www.sucaihuo.com/member/info.html" ><i class="icon-nav icon-tick"></i>我的主页</a>
-                    </li>
-                    <li>
-                        <a href="http://www.sucaihuo.com/member/sign.html" ><i class="icon-nav icon-resp"></i>我的签到</a>
-                    </li>
-                    <li>
-                        <a href="http://www.sucaihuo.com/member/downloads.html" ><i class="icon-nav icon-wiki"></i>下载记录</a>
-                    </li>
-                    <li>
-                        <a href="http://www.sucaihuo.com/member/uploads.html" ><i class="icon-nav icon-code"></i>我的上传</a>
-                    </li>
-                    <li>
-                        <a href="http://www.sucaihuo.com/member/comments.html" ><i class="icon-nav icon-plan"></i>我的评论</a>
-                    </li>
-
-                    <li>
-                        <a href="http://www.sucaihuo.com/member/topic.html" ><i class="icon-nav icon-ques"></i>我的话题</a>
-                    </li>
-
-                    <li>
-                        <a href="http://www.sucaihuo.com/member/message.html" ><i class="icon-nav icon-msg"></i>我的消息</a>
-                    </li>
-<!--            <li>
-                <a href="http://www.sucaihuo.com/member/withdraw.html" ><i class="icon-nav icon-addques"></i>我的提现</a>
-            </li>-->
-            <li>
-                <a href="http://www.sucaihuo.com/member/invitors.html" ><i class="icon-nav icon-user"></i>我的下线</a>
-            </li>
-            <li>
-                <a href="http://www.sucaihuo.com/member/templates.html" class='active'><i class="icon-nav icon-flag"></i>我的模板</a>
-            </li>
-            <li  style='border-bottom: none'>
-                <a href="http://www.sucaihuo.com/member/set.html" ><i class="icon-nav icon-note"></i>我的设置</a>
-            </li>
-        </ul>
-    </div>
+    <include file="Member:nav" />
     <div class="member_per">
         <ul class="space-data panel">
             <li>

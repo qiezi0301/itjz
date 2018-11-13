@@ -61,11 +61,11 @@
                                                 <td>{$user[id]}</td>
                                                 <td><a href="javascript:" onclick="users({$user[id]})" data-toggle="modal" data-target="#user_info">{$user[name]}</a></td>
                                                 <td>{$user[pass]}</td>
-                                                <td>{:date('Y-m-d H:i:s', $user[time])}</td>
+                                                <td>{:date('Y-m-d H:i:s', $user[created_at])}</td>
                                                 <if condition="$user[statu] eq 0">
-                                                    <td><span class="btn btn-success">开启</span></td>
-                                                <else/>
-                                                    <td><span class="btn btn-danger">黑名单</span></td>
+                                                    <td><span class="btn btn-success" onclick="statu(this,{$user[id]},0)">启用</span></td>
+                                                    <else/>
+                                                    <td><span class="btn btn-danger" onclick="statu(this,{$user[id]},1)">禁用</span></td>
                                                 </if>
                                                 <td><a href="{:U('reset', array('id'=>$user['id']))}" class="glyphicon glyphicon-pencil"></a></td>
                                             </tr>
@@ -75,6 +75,7 @@
                             </div>
                         </div>
                         <!-- End Example Events -->
+                        {$page}
                     </div>
                 </div>
             </div>
@@ -82,21 +83,41 @@
         <!-- End Panel Other -->
     </div>
 
-<script>
-    function users(id){
-        $.post('{:U("ajax_user_info")}',{id:id},function(data){
+    <script>
+        function users(id){
+            $.post('{:U("ajax_user_info")}',{id:id},function(data){
+                if (data==0) {
+                    $('#Users').html('<h3>用户信息缺失</h3>');
+                } else {
+                    $('#Users').html(data);
+                }
+            });
+        }
 
-            if (data==0) {
-                $('#Users').html('<h3>用户信息缺失</h3>');
-
+        //状态改变
+        function statu(obj,id,statu){
+            if (statu==1) {
+                //禁用状态
+                $.post("{:U('ajax_statu')}",{id:id,statu:'0'},function(data){
+                    if (data==1) {
+                        $(obj).html('启用');
+                        $(obj).addClass('btn-success').removeClass('btn-danger');
+                        $(obj).attr('onclick','statu(this,'+id+',0)');
+                    }
+                });
             } else {
-                $('#Users').html(data);
+                //正常状态
+                $.post("{:U('ajax_statu')}",{id:id,statu:'1'},function(data){
+                    if (data==1) {
+                        $(obj).html('禁用');
+                        $(obj).addClass('btn-danger').removeClass('btn-success');
+                        $(obj).attr('onclick','statu(this,'+id+',1)');
+                    }
+                });
+            }   
+        }
 
-            }
-        });
-    }
-
-</script>
+    </script>
 
     <div id="user_info" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">

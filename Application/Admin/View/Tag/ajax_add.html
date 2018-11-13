@@ -1,0 +1,13 @@
+<tr id="tr{$vo[tag_id]}" data-index="100">
+    <td class="bs-checkbox"><input data-index="100"  type="checkbox" value="{$vo[tag_id]}" name="btSelectItem" id="check"></td>
+    <td class="check_id">{$vo[tag_id]}</td>
+    <td>{$vo[tablename]}</td>
+    <td>{$vo.typeid}</td>
+    <td class="name">{$vo.tag_name}</td>
+    <td>{$vo.tag_sort}</td>
+    <td>{$vo.posttime|date='Y-m-d H:i:s', ###}</td>
+    <td>
+        <span class="glyphicon glyphicon-pencil" onclick="edit({$vo[tag_id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-trash" onclick="del(this,{$vo[tag_id]})"></span>
+    </td>
+</tr>

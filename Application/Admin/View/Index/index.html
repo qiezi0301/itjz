@@ -40,21 +40,61 @@
 
                     </li>
                     <li>
-                        <a href="layouts.html">
+                        <a href="#">
                             <i class="fa fa-users"></i>
                             <span class="nav-label">会员管理</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="{:U('User/index')}" data-index="0">会员列表</a></li>
+                            <li><a class="J_menuItem" href="{:U('Member/index')}" data-index="0">会员列表</a></li>
+
+                        </ul>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="{:U('Membergroup/index')}" data-index="0">会员组管理</a></li>
 
                         </ul>
                     </li>
                     <li>
-                        <a href="mailbox.html">
+                        <a href="#">
+                            <i class="fa fa-pie-chart"></i>
+                            <span class="nav-label">属性</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="{:U('Property/index')}" data-index="0">属性管理</a></li>
+
+                        </ul>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="{:U('Property_value/index')}" data-index="0">属性值管理</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-sitemap"></i>
+                            <span class="nav-label">联动管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="{:U('Itemgroup/index')}" data-index="0">联动分组列表</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-tag"></i>
+                            <span class="nav-label">标签管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="{:U('Tag/index')}" data-index="0">标签列表</a></li>
+
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
                             <i class="fa fa-reorder"></i>
                             <span class="nav-label">分类管理 </span>
-                            <span class="label label-warning ">16</span>
                             <span class="fa arrow pull-right"></span>
                         </a>
                         <ul class="nav nav-second-level">
@@ -63,29 +103,24 @@
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-cart-plus"></i>
-                            <span class="nav-label">内容管理</span>
-                            <span class="fa arrow"></span>
+                            <i class="fa fa-upload"></i>
+                            <span class="nav-label">软件管理 </span>
+                            <span class="label label-warning ">{$soft_tot}</span>
+                            <span class="fa arrow pull-right"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="{:U('Js/index')}">网页特效</a></li>
+                            <li><a class="J_menuItem" href="{:U('Soft/index', array('pid' => 113), '')}">网页特效</a></li>
                         </ul>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="{:U('Templates/index')}">网站模版</a></li>
+                            <li><a class="J_menuItem" href="{:U('Soft/index', array('pid' => 1), '')}">网站模版</a></li>
                         </ul>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="{:U('Phps/index')}">PHP资源</a></li>
+                            <li><a class="J_menuItem" href="{:U('Soft/index', array('pid' => 4), '')}">PHP资源</a></li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-book"></i>
-                            <span class="nav-label">订单管理</span>
-                            <span class="fa arrow"></span>
-                        </a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="contacts.html">联系人</a></li>
+                            <li><a class="J_menuItem" href="{:U('Soft/index', array('pid' => 298), '')}">整站源码</a></li>
                         </ul>
+   
                     </li>
                     <li>
                         <a href="#">
@@ -94,7 +129,7 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="typography.html">排版</a></li>
+                            <li><a class="J_menuItem" href="{:U('Comment/index')}">评论列表</a></li>
                         </ul>
                     </li>
                     <li>
@@ -104,7 +139,20 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="table_basic.html">基本表格</a></li>
+                            <li><a class="J_menuItem" href="{:U('Sys/lunbo_list')}">基本表格</a></li>
+                        </ul>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="{:U('Sys/lunbo_list')}">轮播图</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-search"></i>
+                            <span class="nav-label">搜索词管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li><a class="J_menuItem" href="{:U('Search/index')}">搜索词表格</a></li>
                         </ul>
                     </li>
                     <li>
@@ -115,9 +163,6 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li><a class="J_menuItem" href="{:U('Sys/index')}">系统配置</a></li>
-                        </ul>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="{:U('Sys/lunbo_list')}">轮播图</a></li>
                         </ul>
                     </li>
                 </ul>

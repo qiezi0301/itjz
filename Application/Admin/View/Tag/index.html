@@ -1,0 +1,380 @@
+<include file="Common/head"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{$type}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#">选项1</a>
+                        </li>
+                        <li><a href="#">选项2</a>
+                        </li>
+                    </ul>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-sm-12">
+                        <!-- Example Events -->
+                        <div class="example-wrap">
+                            <div class="example">
+                                <div class="btn-group hidden-xs" id="exampleToolbar" role="group">
+                                    <button type="button" class="btn btn-white btn-default" data-toggle="modal" data-target="#modal-form">
+                                        <i class="glyphicon glyphicon-plus" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-white btn-default" type="button" onclick="location.href=location.href"><i class="glyphicon glyphicon-refresh" id="refresh"  aria-hidden="true"></i></button> 
+                                    <button type="button" class="btn btn-white btn-default" onclick="delAll()">
+                                        <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+
+                                <form method="post" action="{:U('index')}" class="pull-right form-inline">
+                                    <div class="input-group">                                
+                                        <input type="text" class="form-control input-sm"  name="keyword" id="inputKeyword" placeholder="关键字">
+                                        <div class="input-group-btn">
+                                            <button type="submit" class="btn btn-sm btn-primary">
+                                                搜索
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <table id="exampleTableToolbar" data-toggle="table"  data-mobile-responsive="true" data-striped="true" data-classes="table table-no-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th data-checkbox="true" id="dell"></th>
+                                            <th>编号</th>
+                                            <th>表名</th>
+                                            <th>分类</th>
+                                            <th>标签名称</th>
+                                            <th>排序</th>
+                                            <th>发布时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="add_row">
+                                        <volist name="data" id="vo">
+                                            <tr id="tr{$vo[tag_id]}">
+                                                <td><input type="checkbox" value="{$vo[tag_id]}" name="" id="check"></td>
+                                                <td class="check_id">{$vo[tag_id]}</td>
+                                                <td>{$vo[tablename]}</td>
+                                                <td>{$vo.typeid|get_catename}</td>
+                                                <td class="name">{$vo.tag_name}</td>
+                                                <td>{$vo.tag_sort}</td>
+                                                <td>{$vo.posttime|date='Y-m-d H:i:s', ###}</td>
+                                                <td>
+                                                    <span class="glyphicon glyphicon-pencil" onclick="edit({$vo[tag_id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <span class="glyphicon glyphicon-trash" onclick="del(this,{$vo[tag_id]})"></span>
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                        {$page}
+                        <!-- End Example Events -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <!-- 添加数据模态框 -->
+    <div id="modal-form" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" id="close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">CLose</span>
+                    </button>
+                    <h4 class="modal-title">添加标签</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form method="post" class="form-horizontal" id="add_data" onsubmit="return false">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">标签名称</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="tag_name" class="form-control" autocomplete="on">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">排序</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="tag_sort" class="form-control" autocomplete="on">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                <button class="btn btn-primary" type="submit" onclick="add()">提交</button>
+                                <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改数据模态框 -->
+    <div id="edit" class="modal fade" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" id="edit_close">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">CLose</span>
+                    </button>
+                    <h4 class="modal-title">修改属性</h4>
+                </div>
+
+                <div class="modal-body" id="edit_body">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 提示删除模态框 -->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" 
+                            aria-hidden="true" id="del_close">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        确定删除
+                    </h4>
+                </div>
+                <div class="modal-body" >
+                    <input type="hidden" name="id" value="" class="form-control" id="del_id">
+                    温馨提示：您正在删除名为：<span id="del_body" class="text-danger"></span>标签名称，是否确定该操作
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
+                    <button type="button" class="btn btn-primary" onclick="ajax_del()">确定删除</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- 提示删除全部模态框 -->
+    <!-- 模态框（Modal） -->
+    <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" 
+                            aria-hidden="true" id="del_all_close">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        温馨提示：
+                    </h4>
+                </div>
+                <div class="modal-body" >
+                    <input type="hidden" name="id" value="" class="form-control" id="del_all_id">
+                    您正在批量删除名为：<span id="del_all_body" class="text-danger"></span>标签名称，<br>是否确定该操作
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭 </button>
+                    <button type="button" class="btn btn-primary" onclick="ajax_delAll()">确定删除</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <include file="Common/javascripts"/>
+<script>
+    //添加数据
+    function add(){
+        //序列化表单数据
+        datas=$("#add_data").serialize();
+        //发送ajax请求提交数据
+        $.post('{:U("ajax_add")}',{str:datas},function(data){
+            //判断成功
+           if (data!=0) {
+            //第一个子元素的上面添加数据
+            $("#add_row:first").prepend(data);
+            $("#close").click();
+           } else {
+            alert('添加失败,请重新添加');
+           } 
+        });
+    }
+
+    //del(this,{$admin[id]})
+    //删除数据
+    function del(obj,id){
+        //动态添加模态框
+        $('#myModal').modal('show');
+        //获取需要删除的数据
+        $('#del_id').val(id);
+
+        str = $("#tr"+id).find(".name").text();
+        $('#del_body').html(str);
+
+    }
+
+    //删除操作
+    function ajax_del(){
+        id=$("#del_id").val(); 
+
+        // 发送ajax请求
+        $.post('{:U("ajax_del")}',{id:id},function(data){
+            //判断删除成功否
+            if (data==1) {
+                //移除数据
+                $("#tr"+id).remove();
+                $("#del_close").click();
+            } else {
+                alert('删除失败');
+            }
+        });
+    }
+
+
+    //全选
+
+    $("#exampleTableToolbar").on("check-all.bs.table", function(e, rows, o) {
+        $(':checkbox').parent().parent().addClass('selected');
+    });
+
+    //取消全选
+    $("#exampleTableToolbar").on("uncheck-all.bs.table", function(e, rows, o) {
+        $(':checkbox').parent().parent().removeClass('selected');
+    });
+
+    //单选
+    $("#exampleTableToolbar").on("click", '#check' ,function(e, rows, o) {
+       $(this).parent().parent().toggleClass('selected');
+    });
+
+    // // //取消单选
+    // $("#exampleTableToolbar").on("uncheck.bs.table", function(e, rows, o) {
+    //     $(o).parent().parent().removeClass('selected');
+    // });
+
+    //删除所有数据
+    function delAll(){
+
+        //获取所有被选的数据
+        datas=$("#add_row .selected .check_id");
+        console.log(datas);
+        if (datas.length==0) {
+            alert("请至少选择一项")
+            return;
+        }
+
+        //动态添加模态框
+        $('#delModal').modal('show');
+
+
+        names=$("#add_row .selected .name");
+        //遍历对象获取每一个数据的ID
+        //设置空数组
+        arr=new Array(); 
+        name_arr=new Array(); 
+        for (var i = 0; i < datas.length; i++) {
+            arr[arr.length]=datas.eq(i).text();
+            name_arr[name_arr.length]=names.eq(i).text();
+        }
+
+        //把数组中的所有元素转换为一个字符串
+        str=arr.join(",");
+        name_str=name_arr.join(",&nbsp;&nbsp;");
+
+        //获取需要删除的数据
+        $('#del_all_id').val(str);
+        $('#del_all_body').html(name_str);
+
+    }
+
+    //删除操作
+    function ajax_delAll(){
+        str = $('#del_all_id').val();
+        console.log(str);
+        //发送ajax请求
+        $.post("{:U('ajax_delAll')}",{str:str},function(data){
+            if (data==0) {
+                alert('删除失败');
+            } else if(data==arr.length) {
+                for (var i = 0; i < arr.length; i++) {
+                    $("#tr"+arr[i]).remove();
+                }
+                $("#del_all_close").click();
+
+            }else{
+                alert('删除失败');
+            }
+        });
+    }
+
+    //获取修改的数据
+    function edit(id){
+        //获取需要修改的数据
+        $.post("{:U('ajax_edit')}",{id:id},function(data){
+            $("#edit_body").html(data);
+        });
+    }
+
+    //ajax修改数据
+    function save(){
+        data=$("#edit_form").serialize();
+
+        $.post("{:U('ajax_save')}",{str:data},function(data){
+            if (data!=0) {
+               ids=$("#idss").val(); 
+                $("#tr"+ids).html(data);
+                $("#edit_close").click();
+            } else {
+                alert('修改失败');
+            }
+        });
+    }
+
+    //状态改变
+    function statu(obj,id,statu){
+        if (statu==1) {
+            //禁用状态
+            $.post("{:U('ajax_statu')}",{id:id,statu:'0'},function(data){
+                if (data==1) {
+                    $(obj).html('正常');
+                    $(obj).addClass('btn-info').removeClass('btn-danger');
+                    $(obj).attr('onclick','statu(this,'+id+',0)');
+                }
+            });
+        } else {
+            //正常状态
+            $.post("{:U('ajax_statu')}",{id:id,statu:'1'},function(data){
+                if (data==1) {
+                    $(obj).html('禁用');
+                    $(obj).addClass('btn-danger').removeClass('btn-info');
+                    $(obj).attr('onclick','statu(this,'+id+',1)');
+                }
+            });
+        }
+    }
+
+</script>
+</body>
+</html>

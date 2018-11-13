@@ -1,0 +1,12 @@
+<tr id="tr{$vo[id]}" data-index="100">
+	<td class="bs-checkbox"><input data-index="100" type="checkbox" value="{$vo[id]}" name="btSelectItem" id="check"></td>
+	<td class="check_id">{$vo[id]}</td>
+    <td class="username">{$vo[name]}</td>	
+    <td >{$vo.group}</td>
+    <td>{$vo.value}</td>
+	<td><input type="text" name="{$vo.id}" value="{$vo.sort}" /></td>
+	<td>
+		<span class="glyphicon glyphicon-pencil"onclick="edit({$vo[id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="glyphicon glyphicon-trash" onclick="del(this,{$vo[id]})"></span>
+	</td>
+</tr>

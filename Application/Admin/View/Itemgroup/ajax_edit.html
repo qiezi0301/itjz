@@ -1,0 +1,33 @@
+<form method="post" class="form-horizontal" id="edit_form" onsubmit="return false">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">组名</label>
+        <div class="col-sm-8">
+            <input type="text" name="remark" value="{$vo[remark]}" class="form-control">
+            <input type="hidden" name="id" id="idss" value="{$vo[id]}" class="form-control">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">英文组名</label>
+        <div class="col-sm-8">
+            <input type="text" name="name" value="{$vo[name]}" class="form-control">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="" class="col-sm-2 control-label">状态</label>
+        <div class="col-sm-9">
+            <label class="radio-inline">
+            <input type="radio" name="status" value="0" <if condition="$vo['status'] eq 0">checked="checked"</if> />开启</label>
+            <label class="radio-inline">
+            <input type="radio" name="status" value="1" <if condition="$vo['status'] eq 1">checked="checked"</if> />禁用</label>
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit" onclick="save()">提交</button>
+            <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
+        </div>
+    </div>
+</form>

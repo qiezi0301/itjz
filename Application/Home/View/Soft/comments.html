@@ -1,0 +1,55 @@
+     <ul class="comment_listBox">
+        <volist name="comments" id="vo">
+            <li class="comment_list clearfix" id="comment_{$vo.id}">
+                <div class="comment_avatar">
+                    <span class="userPic"><img width="36" height="36" src="{$vo.userid|get_face}" alt="头像"></span>
+                    <span class="grey">{$comments_num-$key}楼</span>
+                </div>
+                <div class="comment_conBox">
+                    <div class="comment_avatar_time">
+                        <div class="time">{$vo.posttime|date='m-d H:i', ###}</div> {$vo.userid|get_nickname} </div>
+                    <div class="comment_conWrap clearfix">
+                        <div class="comment_action"><a class="reply" onclick="reply_btn({$vo['id']})">回复</a> </div>
+                        <div class="comment_con">{$vo.content}</div>
+                    </div>
+                    <div id="reply_{$vo.id}" class="reply_area" style="display: none;">
+                        <textarea class="textarea_comment" name="content" data-title="{$title}" autocomplete="off"></textarea>
+                        <div class="btn_p clearfix">
+                            <span class="comment_tip" id="comment_tip_{$vo.id}" data-top="4" data-foot="29"></span>
+                            <button class="btn_subGrey btn" onclick="subcomment({$id}, {$mtype}, {$vo.id}, 0)" type="button">提交</button>
+                            <span class="emotion" tabindex="1" data-id="{$vo.id}"></span>
+                        </div>
+                    </div>
+                    <div class="blockquote_wrap">
+                        <volist name="vo.sub" id="sub">
+                            <blockquote class="comment_blockquote">
+                                <div class="comment_floor">{$key+1}</div>
+                                <div class="comment_conWrap clearfix">
+                                    <div class="comment_con">
+                                        <span class="red">{$sub.userid|get_nickname}</span> ：
+                                        <p>{$sub.content}</p>
+
+                                    </div>
+                                    <div class="comment_action_sub">
+                                        <a class="reply" onclick="reply_btn({$sub['id']})">回复</a>
+                                    </div>
+                                </div>
+                                <div id="reply_{$sub['id']}" class="reply_area" style="display: none;">
+                                    <textarea class="textarea_comment" autocomplete="off" data-title="{$title}" name="content"></textarea>
+                                    <div class="btn_p clearfix">
+                                        <span id="comment_tip_{$sub['id']}" class="comment_tip" data-foot="29" data-top="4"></span>
+                                        <button class="btn_subGrey btn" type="button" onclick="subcomment({$id}, {$mtype}, {$vo['id']}, {$sub['id']})">提交</button>
+                                        <span class="emotion" data-id="{$sub['id']}" tabindex="{$sub['id']}"></span>
+                                    </div>
+                                </div>
+                            </blockquote>
+                        </volist>
+       
+                    </div>
+                </div>
+            </li>
+        </volist>
+    </ul>
+    <div class="pager" id="detail-page" data-id="{$id}" data-id="{$title}" data-mtype="{$mtype}" data-totalnum="{$comments_num}">  
+       {$page}
+    </div>   

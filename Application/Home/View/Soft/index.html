@@ -1,0 +1,267 @@
+<include file="Common:head" />
+<body>
+    <include file="Common:nav" />
+
+    <php>
+        $q1 = I('q1', '', 'intval');
+        $q2 = I('q2', '', 'intval');
+        $q3 = I('q3', '', 'intval');
+        $order = I('order', 1, 'intval');
+        $isindex = I('isindex', '', 'intval');
+
+        $qurl = 'q1='.$q1.'&q2='.$q2.'&q3='.$q3;
+        $orderurl = 'order='.$order;
+        $isindexurl = 'isindex='.$isindex;
+        $pidurl = 'pid='.$pid;
+        $cidurl = 'cid='.$cid;
+        $scidurl = 'scid='.$scid;
+        $tagurl = 'tag='.$tag;
+        $keywordurl = 'keyword='.$keyword;
+    </php>
+    
+    <notempty name="keyword">
+        <div id="pgsearch" class="w_list">
+            <ul class="sh-sw clearfix">
+                <li <if condition="!$pid"> class="cur" </if>><a href="{:U('Soft/index',$keywordurl,'')}">全部</a></li>
+                <volist name="classs" id="vo">                    
+
+                    <li  <if condition="$vo['id'] eq $pid"> class="pr cur" </if> class="pr"> <if condition="$key eq 3"> <i>新</i> </if> <a href="{:U('Soft/index',$keywordurl.'&'.'&pid='.$vo['id'],'')}"   >{$vo.info}</a> </li>
+                    
+                </volist>
+
+
+            </ul>
+            <div class="sh-sw-ct">
+                <form target="_self" method="get" action="http://www.sucaihuo.com/search" class="clearfix" id="form_search2">
+                    <input id="sh-text" autocomplete="off" value="{$keyword}" onkeyup="checkInputKeyup($(this))" class="ipt" name="keyword" type="text">
+                    <a target="_self" href="javascript:;" class="abtn abtn-w3"><button type="button" onclick="searchSub()"><u>找一找</u></button></a>
+                    <div class="search-recom">
+                        热门搜索：
+                        <a href="http://www.sucaihuo.com/search.html?keyword=Thinkphp&amp;pid=15" target="_blank">Thinkphp</a>
+                        <a href="http://www.sucaihuo.com/search.html?keyword=商城&amp;pid=15" target="_blank">商城</a>
+
+                    </div>
+                    <input type="hidden" name="pid" value="15">
+                </form>
+            </div>
+        </div>
+    </notempty>
+    <notempty name="subcate">
+        <div class="w_list marquee_announce" style="margin:15px auto 0">
+            <marquee scrollamount="5" scrolldelay="10">整站源码都是PHP+mysql带后台，不求数量但求质量，98%以上源码都是ITJZ管理员亲测，每个源码都有安装说明，跟DEMO演示一样，源码不能用的全额退款，有疑问的可联系客服QQ188316065（07:00-23:00）
+            </marquee>
+        </div>
+        
+        <div id="classify" class="tg_classify w_list">        
+            <div class="tg_tab_box on">
+                    <div class="tg_classify_wrap clearfix">
+                        <dl class="tg_classify_all tg_classify_flat dl_left">
+                            <dt class=""><i class="icon_order"></i>{$classstop.info|trim}分类</dt>
+                        </dl>
+                        <dl class="tg_classify_all tg_classify_flat clearfix dl_right">
+                            <dd <if condition="!$cid">class="menu on"</if>><a href="{:U('Soft/index', $qurl.'&'.$orderurl.'&'.$isindexurl.'&'.$pidurl.'&'.$keywordurl,'')}"><span>不限</span></a></dd>
+                            <volist name="subcate" id="vo">
+                                <dd <if condition="$vo['id'] eq $cid">class="on"</if>>
+                                    <a href="{:U('Soft/index', $qurl.'&'.$orderurl.'&'.$isindexurl.'&'.$pidurl.'&'.$keywordurl.'&cid='.$vo['id'],'')}">
+                                        <span>{$vo.cname}</span>
+                                    </a>
+                                </dd>
+                            </volist>
+                        </dl>
+                    </div>
+                
+
+                <notempty name="subcate2">
+                    <div class="tg_classify_wrap clearfix">
+                        <dl class="tg_classify_all tg_classify_flat dl_left">
+                            <dt class=""><i class="icon_order"></i>分类子级</dt>
+                        </dl>
+                        <dl class="tg_classify_all tg_classify_flat clearfix dl_right">
+                            <dd <if condition="!$scid">class="menu on"</if>><a href="{:U('Soft/index', $qurl.'&'.$orderurl.'&'.$isindexurl.'&'.$pidurl.'&'.$keywordurl.'&'.$cidurl,'')}"><span>不限</span></a></dd>
+                            <volist name="subcate2" id="vo">
+                                <dd <if condition="$vo['id'] eq $scid">class="on"</if>>
+                                    <a href="{:U('Soft/index', $qurl.'&'.$orderurl.'&'.$isindexurl.'&'.$pidurl.'&'.$keywordurl.'&scid='.$vo['id'],'')}">
+                                        <span>{$vo.cname}</span>
+                                    </a>
+                                </dd>
+                            </volist>
+                        </dl>
+                    </div>
+                </notempty>
+                
+                <notempty name="proplist">
+                    <php>$k=1;</php>
+                    <volist name="proplist" id="vo">
+                        <php>
+                            $purl = '';
+                            $comurl='';    
+                            $pnum = count($proplist)+1;
+                            for($j=1;$j<$pnum;$j++){
+                                $vid = 0;
+                                if($j!=$k){
+                                    $vid = I('q'.$j, '', 'intval');
+                                } 
+                                if($j==1){
+                                    $purl .= 'q'.$j.'='.$vid;
+                                    $comurl .= 'q'.$j.'='.$comid;
+                                }else{
+                                    $purl .= '&q'.$j.'='.$vid;
+                                }
+                            }
+                        </php>
+                        <div class="tg_classify_wrap clearfix">
+                            <dl class="tg_classify_all tg_classify_flat dl_left">
+                                <dt><i class="icon_order"></i>{$vo.name}</dt>
+                            </dl>
+                            <dl class="tg_classify_all tg_classify_flat clearfix dl_right">
+                                <dd <if condition="I('q'.$k, 0, 'intval') eq 0">class="on"</if> ><a href="{:U('index',$purl.'&'.$pidurl.'&'.$cidurl.'&'.$orderurl.'&'.$isindexurl.'&'.$keywordurl.'&'.$scidurl,'')}"><span>不限</span></a></dd>
+                                
+                                <volist name=":get_propvalue($vo['id'])" id="v">
+                                <php>
+                                    $vurl = '';
+                                    for($n=1;$n<$pnum;$n++){
+                                        if($n==$k){
+                                            $vid1 = $v['id'];
+                                        }else{
+                                            $vid1 = I('q'.$n, '', 'intval');
+                                        }
+                                        if($n==1){
+                                            $vurl .= 'q'.$n.'='.$vid1;
+                                        }else{
+                                            $vurl .= '&q'.$n.'='.$vid1;
+                                        }
+                                    }
+
+                                </php>
+                                <dd <if condition="$v['id'] eq I('q'.$k, 0, 'intval')">class="on"</if> ><a href="{:U('index',$vurl.'&'.$pidurl.'&'.$cidurl.'&'.$orderurl.'&'.$isindexurl.'&'.$keywordurl.'&'.$scidurl,'')}"><span>{$v.vname}</span></a></dd>
+                                </volist>
+                                
+                             </dl>
+                        </div>
+                        <php>$k++;</php>
+                    </volist>
+                </notempty>
+            </div>        
+        </div>
+    </notempty>
+
+    <notempty name="tag">
+        <div id="container" class="w_list"> 
+            <div class="tag_head">
+                <a class="rechose" href="{:U('Soft/index', $pidurl,'')}">
+                    <i class="icon-returnback"></i>
+                    重置筛选条件
+                </a>
+                <h1>标签：<strong>{$tag}</strong></h1>
+            </div>
+        </div>
+
+    </notempty>
+
+    <div id="container" class="w_list"> 
+        <div id="sort" class="tg_sort w_list clearfix">
+            <div class="tg_classify_wrap">
+                <dl class="tg_classify_toggle">
+                    <dt <if condition="$order eq 1">class="on"</if> >
+                    <a href="{:U('index',$qurl.'&'.$pidurl.'&'.$cidurl.'&'.$isindexurl.'&'.$tagurl.'&'.$scidurl.'&'.$keywordurl.'&order=1','')}">
+                        <i class="icon_order"></i>
+                        <span>默认</span>
+                        <b class="icon_order"></b>
+                    </a>
+                    </dt>
+                </dl>
+            </div>
+            <div class="tg_classify_wrap">
+                <dl class="tg_classify_toggle">
+                    <dt <if condition="$order eq 2">class="on"</if> >
+                    <a href="{:U('index',$qurl.'&'.$pidurl.'&'.$cidurl.'&'.$isindexurl.'&'.$tagurl.'&'.$scidurl.'&'.$keywordurl.'&order=2','')}">
+                        <i class="icon_order"></i>
+                        <span>人气</span>
+                        <b class="icon_order"></b>
+                    </a>
+                    </dt>
+                </dl>
+            </div>
+            <div class="tg_classify_wrap">
+                <dl class="tg_classify_toggle">
+                    <dt <if condition="$order eq 3">class="on"</if> >
+                    <a href="{:U('index',$qurl.'&'.$pidurl.'&'.$cidurl.'&'.$isindexurl.'&'.$tagurl.'&'.$scidurl.'&'.$keywordurl.'&order=3','')}">
+                        <i class="icon_order"></i>
+                        <span>下载</span>
+                        <b class="icon_order"></b>
+                    </a>
+                    </dt>
+                </dl>
+            </div>
+            <php>                
+                if(!$isindex){
+                    $isindex=1;   
+                }else{
+                    $isindex=0;
+                }                
+            </php>
+
+            <div class="tg_classify_wrap">
+                <dl class="tg_classify_simplecheck">
+                    <dt  <if condition="$isindex eq 0">class="on"</if>>
+                    <a href="{:U('index',$qurl.'&'.$pidurl.'&'.$cidurl.'&'.$orderurl.'&'.$scidurl.'&'.$tagurl.'&'.$keywordurl.'&isindex='.$isindex,'')}">
+                        <i class="icon_order"></i>
+                        <span>推荐</span>
+                    </a>
+                    </dt>
+                </dl>
+            </div>
+        </div>
+
+    <div class="list">
+        <div class="list_main clearfix">
+                <volist name="soft" id="soft">
+                    <div class="per" > 
+                        <a target="_blank" href="{:U('Soft/detail',array('id'=>$soft['id'], 'pid'=>$pid), '')}" class="img_link"> 
+                            <img src="{$soft.litpic|get_picture=600}" alt="{$soft.title}" class="lazy" style="width: 268px"  />
+                        </a>
+                        <div class="foot">
+                            <p class="title"><a target="_blank"  href="{:U('Soft/detail',array('id'=>$soft['id'], 'pid'=>$pid), '')}" >{$soft.title}</a> </p> 
+                            <div class="statics">
+                                <a class='download citecommon'>下载 <em>{$soft.downnum}次</em></a>
+                                <a class='comment citecommon'>评论 <em>0条</em></a>
+                                <a class='scores citecommon'>浏览 <em>{$soft.click}次</em></a>
+                            </div>
+                        </div> 
+                    </div>
+                </volist>
+        </div>
+
+        <div class="pager">
+            {$page}
+        </div>
+    </div>
+</div>
+
+<include file="Common:footer" />
+
+<!--<div class="mmsg-box mmsg-box-info" id='msg-box' style="margin-top: -23.5px; margin-left: -96.5px;">
+    <div class="mmsg-content">
+        <i class="mmsg-icon"></i>
+        <p id='msg-box-content'></p>
+    </div>
+    <div class="mmsg-background"></div>
+</div>-->
+<div id="windown_box2"></div>
+
+</body>
+</html>
+<script type="text/javascript" src="__JS__/plugins/blocksit.min.js"></script>
+
+<script type="text/javascript" >
+    $(function() {
+        $("#site_nav,#header,#nav").children().removeClass("w").addClass("w_list");
+        $(window).load(function() {
+            $('.list_main').BlocksIt({
+                numOfCol: 4,
+                offsetX: 6,
+                offsetY: 8
+            });
+        });
+    })
+</script>

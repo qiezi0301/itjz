@@ -67,14 +67,15 @@ class SysController extends CommonController {
 
     //插入数据
     public function lunbo_insert(){
-    	$model=M('slider');
+    	$model=D('slider');
 
 		$data['name'] = trimall($_POST['name']);
 		$data['sort'] = trimall($_POST['sort']);
 		$data['url'] = trimall($_POST['url']);
 		$data['img'] = $_POST['img'];
 
-    	if ($model->add($data)) {
+    	if ($model->create($data)) {
+            $model->add();
     		$this->success('添加成功', U('lunbo_list'));
     	} else {
     		$this->error('添加失败');
@@ -82,9 +83,10 @@ class SysController extends CommonController {
     }
 
     public function lunbo_save(){
-        $model=M('slider');
+        $model=D('slider');
 
-        if ($model->save($_POST)) {
+        if ($model->create($_POST,2)) {
+            $model->save();
             if ($_POST['img']==$_POST['oldimg']) {
                 # code...
             } else {
@@ -100,7 +102,9 @@ class SysController extends CommonController {
 
     //ajax请求修改排序状态
     public function ajax_sorts(){
-    	if (M('slider')->save($_POST)) {
+        $model=D('slider');
+    	if ($model->create($_POST,2)) {
+            $model->save();
     		echo "1";
     	} else {
     		echo "0";

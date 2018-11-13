@@ -1,0 +1,27 @@
+<form method="post" class="form-horizontal" id="edit_form" onsubmit="return false">
+    <div class="form-group">
+        <label class="col-sm-3 control-label">选择属性类型</label>
+        <div class="col-sm-9">
+            <select name="prop_id" class="form-control">
+                <volist name="proplist" id="v">
+                    <option value="{$v.id}" <if condition="$data['prop_id'] eq $v['id']">selected="selected"</if> >{$v.name}</option>
+                </volist>
+            </select>
+            <input type="hidden" name="id" id="idss" value="{$data[id]}" class="form-control">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">属性值名称</label>
+        <div class="col-sm-9">
+            <input type="text" name="vname" value="{$data[vname]}" class="form-control">
+        </div>
+    </div>
+    <div class="hr-line-dashed"></div>
+    <div class="form-group">
+        <div class="col-sm-4 col-sm-offset-2">
+            <button class="btn btn-primary" type="submit" onclick="save()">提交</button>
+            <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
+        </div>
+    </div>
+</form>

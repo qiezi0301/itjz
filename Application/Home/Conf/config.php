@@ -1,5 +1,5 @@
 <?php
-return array(
+$config_base = array(
 	//'配置项'=>'配置值'
 
 	/* 配置文件夹路径 */
@@ -15,3 +15,5 @@ return array(
         '__PUBLIC__' => __ROOT__ . '/Public'
     )
 );
+
+return array_merge(get_cfg_value(),$config_base);

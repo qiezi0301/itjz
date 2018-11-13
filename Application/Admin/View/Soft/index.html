@@ -1,0 +1,184 @@
+<include file="Common/head"/>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{$type}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <div class="row row-lg">
+                    <div class="col-lg-12 column">                                        
+                        <div class="btn-group hidden-xs" id="TableEventsToolbar" role="group">
+                            <if condition='ACTION_NAME eq "index"'>
+                                <button class="btn btn-white btn-default" type="button" onclick="goUrl('{:U('add', array('pid'=>$pid), '')}')" ><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></button>
+                                <button class="btn btn-white btn-default" type="button" onclick="location.href=location.href"><i class="glyphicon glyphicon-refresh" id="refresh"  aria-hidden="true"></i></button>
+                                <button class="btn btn-white btn-default" type="button" onclick="doConfirmBatch('{:U('del', array('batchFlag' => 1,'pid' => $pid))}', '确实要删除选择项吗？')"><em class="glyphicon glyphicon-remove-circle"></em> 删除</button>                
+                                <button class="btn btn-white btn-default" type="button" onclick="goUrl('{:U('trach', array('pid' => $pid))}')"><em class="glyphicon glyphicon-trash"></em> 回收站</button>
+                            <else/>
+                                <button class="btn btn-primary " type="button" onclick="goUrl('{:U('index', array('pid'=>$pid))}')"><em class="glyphicon glyphicon-chevron-left"></em> 返回</button>
+                                <button class="btn btn-white btn-default" type="button" onclick="doGoBatch('{:U('restore',  array('batchFlag' => 1, 'pid' => $pid))}')"><em class="glyphicon glyphicon-retweet"></em> 还原</button>                 
+                                <button class="btn btn-white btn-default" type="button" onclick="doConfirmBatch('{:U('clear', array('batchFlag' => 1, 'pid' => $pid))}', '确实要彻底删除选择项吗？')"><em class="glyphicon glyphicon-remove-circle"></em> 彻底删除</button> 
+                            </if>
+                        </div>
+                        <form method="post" action="{:U('index',array('pid'=>$pid))}" class="pull-right form-inline">
+                            <div class="input-group">
+                                
+                                <input type="text" class="form-control input-sm"  name="keyword" id="inputKeyword" placeholder="关键字">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        搜索
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 column">
+                       <form action="" method="post" id="form_do" name="form_do">
+                            <table id="TableToolbar" data-toggle="table" data-mobile-responsive="true" data-striped="true" data-classes="table table-no-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"><input type="checkbox" id="check"></th>
+                                        <th>ID</th>
+                                        <th>标题</th>
+                                        <th>分类</th>
+                                        <th>点击</th>
+                                        <th>演示地址</th>
+                                        <th>下载地址</th>
+                                        <th>更新时间</th>
+                                        <th>推荐</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <volist name="data" id="vo">
+                                        <tr>
+                                            <td class="text-center"><input type="checkbox" name="key[]" value="{$vo.id}"></td>
+                                            <td>{$vo[id]}</td>
+                                            <td>{$vo[title]}</td>
+                                            <td>{$vo.cid|get_catename}</td>
+                                            <td>{$vo[click]}</td>
+                                            <td><input class="col-sm-12" type="text" onblur="demos(this,{$vo[id]})" value="{$vo[demo]}"></td>
+                                            <td><input class="col-sm-12" type="text" onblur="downs(this,{$vo[id]})" value="{$vo[downlink]}"></td>
+                                            <td>{$vo[updated_at]|date='Y-m-d H:i:s',###}</td>
+                                            
+                                            <if condition="$vo[isindex] eq 0">
+                                                <td><a href="javascript:;" class="label label-danger" onclick="isindex(this,{$vo[id]},0)">否</a></td>
+                                            <else/>
+                                                <td><a href="javascript:;" class="label label-info"  onclick="isindex(this,{$vo[id]},1)">是</a></td>
+                                            </if>
+                                            
+                                            <td>
+                                                <if condition='ACTION_NAME eq "index"'>
+                                                    <a href="{:U('edit',array('id'=>$vo[id], 'pid'=>$pid, 'p' => $_GET['p']), '')}" class="label label-info">编辑</a>
+                                                    <a href="javascript:;" class="label label-danger" onclick="toConfirm('{:U('del',array('id' => $vo['id'], 'pid' => $pid,'p' => $_GET['p']), '')}', '确实要删除吗？')" >删除</a>
+                                                <else/>
+                                                    <a href="{:U('restore',array('id' => $vo['id'], 'pid' => $pid,'p' => $_GET['p']), '')}" class="label label-info">还原</a>
+                                                    <a href="javascript:;" onclick="toConfirm('{:U('clear',array('id' => $vo['id'], 'pid' => $pid,'p' => $_GET['p']), '')}', '确实要彻底删除吗？')" class="label label-danger">彻底删除</a>
+                                                </if>
+                                            </td>
+                                        </tr>
+                                    </volist>
+                                </tbody>
+
+                            </table>
+                        </form>   
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <div class="xyh-page">
+                            {$page}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <include file="Common/javascripts"/>
+
+    <script>
+
+    function demos(obj,id){
+        val=$(obj).val();
+
+        $.post('{:U("ajax_demos")}', {id:id, demo:val},function(data){
+            if (data==1) {
+                $("#refresh").click();
+            }
+        });
+    }
+
+    function downs(obj,id){
+        val=$(obj).val();
+        $.post('{:U("ajax_downs")}', {id:id, downlink:val},function(data){
+            if (data==1) {
+                $("#refresh").click();
+            }
+        });
+    }
+
+    function dels(obj,id){
+        //发送ajax请求
+        $.post('{:U("ajax_dels")}',{id:id},function(data){
+            if (data==1) {
+                $(obj).parent().parent().remove();
+            } else {
+                alert('删除失败');
+            }
+        });
+    }
+    //全选/取消
+    $("#TableToolbar").on("click", '#check' ,function(e, rows, o) {
+       var checked = $(this).prop('checked');   
+        if(checked){
+            setCheckbox(true);
+        }else{
+            setCheckbox(false);
+        }
+    });
+
+    //状态改变
+    function isindex(obj,id,isindex){
+
+        if (isindex==1) {
+            //禁用状态
+            $.post("{:U('ajax_isindex')}",{id:id,isindex:'0'},function(data){
+                if (data==1) {
+                    $(obj).html('否');
+                    $(obj).addClass('label-danger').removeClass('label-info');
+                    $(obj).attr('onclick','isindex(this,'+id+',0)');
+                }
+            });
+        } else {
+            //正常状态
+            $.post("{:U('ajax_isindex')}",{id:id,isindex:'1'},function(data){
+                if (data==1) {
+                    $(obj).html('是');
+                    $(obj).addClass('label-info').removeClass('label-danger');
+                    $(obj).attr('onclick','isindex(this,'+id+',1)');
+                }
+            });
+        }
+    }
+
+   </script>
+
+</body>
+</html>

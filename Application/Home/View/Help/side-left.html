@@ -1,0 +1,17 @@
+    <div class="side-left">
+        <div id="help-center" class="box help-center">
+            <div class="title">
+                <h3>帮助中心</h3>
+            </div>
+            <php>
+                $php_self=substr($_SERVER['PHP_SELF'],strrpos($_SERVER['PHP_SELF'],'/')+1);
+            </php>
+            <ul>
+                <li><a  <if condition="$php_self eq 'index.html'">class="active"</if>  href="{:U('Help/index')}">关于我们<span></span></a></li>
+                <li><a  <if condition="$php_self eq 'job.html'">class="active"</if>  href="{:U('Help/job')}">招贤纳士<span></span></a></li>
+                <li><a  <if condition="$php_self eq 'contact.html'">class="active"</if>  href="{:U('Help/contact')}">联系我们<span></span></a></li>
+                <li><a  <if condition="$php_self eq 'template.html'">class="active"</if>  href="{:U('Help/template')}">想扒就扒<span></span></a></li>
+                <li><a  <if condition="$php_self eq 'points.html'">class="active"</if>  href="{:U('Help/points')}">积分获取<span></span></a></li>
+            </ul>
+        </div>
+    </div>

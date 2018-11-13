@@ -70,18 +70,28 @@
         }
     });
 
-    // 当有文件添加进来的时候
-    uploader.on("fileQueued", function(file) {
+    // // 当有文件添加进来的时候
+    // uploader.on("fileQueued", function(file) {
+    //     console.log("fileQueued:" + file.name);
+    //     $btn.removeClass('disabled');
+    //     $list.html('<div id="' + file.id + '" class="item">' + '<h4 class="info">' + file.name + '</h4>' + '<p class="state">等待上传...</p>' + '</div>' );
+    // });
+
+
+        // 当有文件添加进来的时候
+    uploader.onFileQueued = function( file ) {
+
         console.log("fileQueued:" + file.name);
         $btn.removeClass('disabled');
         $list.html('<div id="' + file.id + '" class="item">' + '<h4 class="info">' + file.name + '</h4>' + '<p class="state">等待上传...</p>' + '</div>' );
-    });
+    };
 
     // 当某个文件上传到服务端响应后，会派送此事件来询问服务端响应是否有效。
     uploader.on("uploadAccept", function(object, ret) {
         // 服务器响应了
         var data = JSON.parse(ret._raw);
         console.log("uploadAccept:" + ret._raw);
+        alert(data.status);
         if (data.status == "SUCCESS") {
             $("#fileUrl").val(data.url);
         } else {
@@ -105,9 +115,17 @@
 
     // 当文件上传成功时触发。
     uploader.on("uploadSuccess", function(file, response) {
+
+        var obj = $("#zip");
+        obj.val(response.url);
+        obj.change();
+
         console.log("uploadSuccess:" + response.url);
         $("#" + file.id).find("p.state").text("已上传成功");
+
     });
+
+
 
     // 当所有文件上传结束时触发
     uploader.on("uploadFinished", function() {

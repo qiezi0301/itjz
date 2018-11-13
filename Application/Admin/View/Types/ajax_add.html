@@ -1,0 +1,23 @@
+<tr id="tr{$data[id]}" data-index="20">
+    <td class="bs-checkbox"><input data-index="20" type="checkbox" name="btSelectItem" id="check" value="{$data[id]}"></td>
+    <td>{$data[id]}</td>
+    <?php
+        $arr=explode(',',$data['path']);
+        array_pop($arr);
+        $size=count($arr);
+
+    ?>
+    <td>{:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;', $size-1)}
+    <if condition="$size neq 1">⊢</if>
+    {$data[cname]}</td>
+    <if condition="$size eq 3">
+        <td style="text-align: center; width: 100px; "><span class="glyphicon glyphicon-plus"></span></td>
+    <else />
+        <td style="text-align: center; width: 100px; "><a href="javascript:" data-path="{$data[path]}{$data[id]}," data-id="{$data[id]}" data-cname="添加&nbsp;&nbsp;《{$data[cname]}》&nbsp;&nbsp;子类" class="glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_types"></a></td>
+    </if>
+    <td>{$data[info]}</td>
+    <td>{$data[pid]}</td>
+    <td>{$data[path]}</td>
+    <td><span onclick="edit({$data[id]})" class="glyphicon glyphicon-pencil" data-target="#edit" data-toggle="modal"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span onclick="del(this,{$data['id']})" class="glyphicon glyphicon-trash"></span></td>
+</tr>

@@ -372,6 +372,8 @@ jQuery(function() {
 
     // 当有文件添加进来的时候
     uploader.onFileQueued = function( file ) {
+
+        console.log("fileQueued:" + file.name);
         if (fileCount!=0) {
             //通过新上传的文件删除上一个添加的
             var str = file.id;

@@ -1,0 +1,11 @@
+<tr id="tr{$data[id]}" data-index="100">
+	<td class="bs-checkbox"><input data-index="100" type="checkbox" value="{$data[id]}" name="btSelectItem" id="check"></td>
+	<td class="check_id">{$data[id]}</td>
+	<td class="username"><a href="{:U('Iteminfo/index',array('group' => $data['name']), '')}">{$data[name]} | {$data[remark]}</a></td>
+	<td><if condition="$data['status']">禁用<else/>正常</if></td>
+	<td>
+		<span class="glyphicon glyphicon-pencil"onclick="edit({$data[id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+		<span class="glyphicon glyphicon-trash" onclick="del(this,{$data[id]})"></span>
+	</td>
+</tr>
+

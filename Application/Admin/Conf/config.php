@@ -1,7 +1,8 @@
 <?php
 return array(
 	//'配置项'=>'配置值'
-
+	'ADMIN_AUTH_KEY'  => 'yang_adm_superadmin',	//超级管理员识别
+	'USER_AUTH_KEY'   => 'yang_adm_uid',			//用户认证识别号
 	/* 配置文件夹路径 */
 	'TMPL_PARSE_STRING' => array(
         '__STATIC__'  => __ROOT__ . '/Public/static',

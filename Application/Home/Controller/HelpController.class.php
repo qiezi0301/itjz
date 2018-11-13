@@ -1,7 +1,8 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class HelpController extends Controller {
+class HelpController extends CommonController {
+
     public function index(){
         $this->display();
     }
@@ -10,6 +11,8 @@ class HelpController extends Controller {
     }
 
     public function contact(){
+        $ename = I('e', '', 'htmlspecialchars,trim');
+        echo $ename;
         $this->display();
     }
     public function job(){

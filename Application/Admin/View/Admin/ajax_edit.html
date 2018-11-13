@@ -15,18 +15,12 @@
     </div>
     <div class="hr-line-dashed"></div>
     <div class="form-group">
-        <label class="col-sm-2 control-label">STATU</label>
-        <div class="col-sm-8">
-            <label>
-                <if condition="$data[statu] eq 1">
-                    <input type="radio" name="statu" value="0"  id="">&nbsp;&nbsp;&nbsp;&nbsp;正常
-                    <input type="radio" name="statu" value="1" checked id="">&nbsp;&nbsp;&nbsp;&nbsp;禁用&nbsp;&nbsp;&nbsp;&nbsp;
-                <else />
-                    <input type="radio" name="statu" value="0" checked id="">&nbsp;&nbsp;&nbsp;&nbsp;正常  
-                    <input type="radio" name="statu" value="1" id="">&nbsp;&nbsp;&nbsp;&nbsp;禁用&nbsp;&nbsp;&nbsp;&nbsp;
-                </if>
-
-            </label>
+        <label for="" class="col-sm-2 control-label">状态</label>
+        <div class="col-sm-9">
+            <label class="radio-inline">
+            <input type="radio" name="statu" value="0" <if condition="$data[statu] eq 0">checked="checked"</if> />开启</label>
+            <label class="radio-inline">
+            <input type="radio" name="statu" value="1" <if condition="$data[statu] eq 1">checked="checked"</if> />禁用</label>
         </div>
     </div>
     <div class="hr-line-dashed"></div>

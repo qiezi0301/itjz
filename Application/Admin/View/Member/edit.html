@@ -1,0 +1,77 @@
+<include file="Common/head"/>
+
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{$type}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-wrench"></i> </a>
+                    <a class="close-link"> <i class="fa fa-times"></i> </a>
+                </div>
+            </div>
+
+            <div class="ibox-content">
+                <form action="{:U('edit')}" method="post" class="form-horizontal" id="form_do" name="form_do">
+                    <div class="form-group">
+                        <label for="inputEmail" class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="email" id="inputEmail" value="{$vo.email}" class="form-control" placeholder="邮箱" required="required" />    
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-9">
+                            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="不修改请留空" />
+                            <p class="form-control-static">不修改请留空</p>       
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputNickname" class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="username" id="inputNickname" value="{$vo.username}" class="form-control" placeholder="用户名" />  
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputValue" class="col-sm-2 control-label">会员组名</label>
+                        <div class="col-sm-9">
+                            <select name="groupid" class="form-control">
+                                <foreach name='vlist' item='v'>
+                                <option value="{$v.id}" <if condition="$vo['groupid'] eq $v['id']">selected="selected"</if>>{$v.name}</option>
+                                </foreach>
+                            </select>       
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="" class="col-sm-2 control-label">状态</label>
+                        <div class="col-sm-9">
+                            <label class="radio-inline">
+                                <input type="radio" name="islock" value="0" <if condition="$vo['islock'] eq 0">checked="checked"</if> />正常              
+                             </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="islock" value="1" <if condition="$vo['islock'] eq 1">checked="checked"</if> />锁定      
+                             </label>   
+                        </div>
+                    </div>                  
+                    
+                    <div class="form-group">
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <input type="hidden" name="id" value="{$vo.id}" />
+                            <button type="submit" class="btn btn-primary"> <i class="glyphicon glyphicon-saved"></i>保存</button>
+                            <button type="button" onclick="goUrl('{:U('index')}')" class="btn btn-default"> <i class="glyphicon glyphicon-chevron-left"></i>返回</button>
+                        </div>
+                    </div>
+                </form>
+
+        </div>
+    </div>
+    <!-- End Panel Other -->
+</div>
+<include file="Common/javascripts"/>
+</body>
+</html>

@@ -39,11 +39,11 @@ $(function() {
 
         if (keyword != "" && keyword != '请输入搜索内容') {
            var li = "<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=2' data-mtype=2> 搜索含<span class='red'>" + keyword + "</span>的jQuery特效</a>\n\
-   <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=1' data-mtype=1> 搜索含<span class='red'>" + keyword + "</span>的网站模板</a>\n\
-<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=20' data-mtype=20> 搜索含<span class='red'>" + keyword + "</span>的PHP源码</a>\n\
-<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=15' data-mtype=15> 搜索含<span class='red'>" + keyword + "</span>的整站源码</a>\n\
-<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=30' data-mtype=30> 搜索含<span class='red'>" + keyword + "</span>的视频教程</a>\n\
-<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=21' data-mtype=21> 搜索含<span class='red'>" + keyword + "</span>的话题</a>";
+                   <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=1' data-mtype=1> 搜索含<span class='red'>" + keyword + "</span>的网站模板</a>\n\
+                <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=20' data-mtype=20> 搜索含<span class='red'>" + keyword + "</span>的PHP源码</a>\n\
+                <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=15' data-mtype=15> 搜索含<span class='red'>" + keyword + "</span>的整站源码</a>\n\
+                <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=30' data-mtype=30> 搜索含<span class='red'>" + keyword + "</span>的视频教程</a>\n\
+                <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=21' data-mtype=21> 搜索含<span class='red'>" + keyword + "</span>的话题</a>";
             $("#search_box").html(li).removeClass("hide")
         } else {
             $("#search_box").html("").addClass("hide")
@@ -58,11 +58,11 @@ $(function() {
 
         if (keyword != "" && keyword != '请输入搜索内容') {
             var li = "<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=2' data-mtype=2> 搜索含<span class='red'>" + keyword + "</span>的jQuery特效</a>\n\
-   <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=1' data-mtype=1> 搜索含<span class='red'>" + keyword + "</span>的网站模板</a>\n\
-<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=20' data-mtype=20> 搜索含<span class='red'>" + keyword + "</span>的PHP</a>\n\
-<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=15' data-mtype=15> 搜索含<span class='red'>" + keyword + "</span>的整站源码</a>\n\
-<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=30' data-mtype=30> 搜索含<span class='red'>" + keyword + "</span>的视频教程</a>\n\
-<a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=21' data-mtype=21> 搜索含<span class='red'>" + keyword + "</span>的话题</a>";
+                   <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=1' data-mtype=1> 搜索含<span class='red'>" + keyword + "</span>的网站模板</a>\n\
+                <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=20' data-mtype=20> 搜索含<span class='red'>" + keyword + "</span>的PHP</a>\n\
+                <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=15' data-mtype=15> 搜索含<span class='red'>" + keyword + "</span>的整站源码</a>\n\
+                <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=30' data-mtype=30> 搜索含<span class='red'>" + keyword + "</span>的视频教程</a>\n\
+                <a href='" + getUrl('') + "search.html?keyword=" + keyword + "&mtype=21' data-mtype=21> 搜索含<span class='red'>" + keyword + "</span>的话题</a>";
             $("#search_box").html(li).removeClass("hide")
         } else {
             $("#search_box").html("").addClass("hide")
