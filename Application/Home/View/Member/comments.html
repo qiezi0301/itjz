@@ -1,0 +1,60 @@
+<include file="Common:head" />
+<body>
+<include file="Common:nav" />
+    <link href="__CSS__/member.css" rel="stylesheet" type="text/css"/>
+    <div class="container w clearfix">
+    <include file="Member:left" />
+    <div class="member_main">
+        <div class="perInfo">
+            <div class="titleInfoBorder">
+                <span>{$title}</span>
+            </div>
+        </div>
+        <volist name="list" id="v">
+        <php>
+
+            //去除空数组'',0,再使用sort()重建索引
+            $tagarr = array_filter(explode(',',$v['tag']));
+            //dump($v);
+            //dump($tagarr);
+        </php>
+        <div class="infoPerBlock infoCommentBlock ">
+            <div class="leftPicBlock">
+                <a href="{$member['id']|get_face}">
+                    <img src="{$member.id|get_face}" title="头像" alt="头像">
+                </a>
+            </div>
+            <div class="centerBlock">
+                <span class="title">
+                我评论 
+                <span class="red">{$v.userid|get_username}</span>
+                说：
+            </span>
+                <div class="infoNews">{$v.content}</div>
+                <div class="objectBlock">
+                    <span class="pic">
+                        <a target="_blank" href="{:U('Soft/detail',array('pid'=>$v['cid'],'id'=>$v['postid']),'')}">
+                            <img width="50px" height="50px" style="margin-top:0px" alt="{$v.title}" src="{$v['litpic']}">
+                        </a>
+                    </span>
+                    <span class="objTitle">
+                        <a target="_blank" href="{:U('Soft/detail',array('pid'=>$v['cid'],'id'=>$v['postid']),'')}">{$v.title}</a>
+                    </span>
+                    <p class="tags">
+                        <volist name="tagarr" id="tag">
+                            <a target="_blank" class="list-tag" href="{:U('Soft/index',array('pid'=>$v['cid'],'tag'=>$tag),'')}">{$tag}</a>
+                        </volist>
+                    </p>
+                </div>
+            </div>
+            <div class="rightBlock">
+                <span class="time">{$v.posttime|date='m-d H:i',###}</span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        </volist>
+        <div class="pager">{$page}</div>
+    </div>
+    </div>
+<include file="Common:footer" />
+<include file="Member:mfooter" />

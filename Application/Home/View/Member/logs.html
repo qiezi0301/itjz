@@ -1,0 +1,53 @@
+<include file="Common:head" />
+<body>
+<include file="Common:nav" />
+<link href="__CSS__/member.css" rel="stylesheet" type="text/css"/>
+<div class="container w clearfix">
+    <include file="Member:left" />
+    <div class="member_main" id='member_index'>
+        <div class="perInfo">
+            <div class="titleInfoBorder">
+                <span>{$title}</span>
+                <!--<a class="want" href="{:U('Member/pay')}">去充值</a>-->
+            </div>
+        </div>
+        <notempty name='lists'>
+            <table class='table_member'>
+                <tr>
+                    <th align="left">积分流水</th>
+                    <th align="left"></th>
+                    <th align="left">操作对象标题</th>
+                    <th align="left">说明信息</th>
+                    <th align="left">操作时间</th>
+                    <!--<th align="center">状态</th>-->
+                </tr>
+                <tbody>
+                <foreach name="lists" item="row">
+                    <tr>
+                        <td><if condition='$row.type eq 1'>
+                        <b class="green">收入</b>
+                        <elseif condition="$row.type eq 2" />
+                        <b class="red">支出</b>
+                        <else/>
+                        </if>
+                        </td>
+                        <td width='100px'>{$row.scoreinfo} 积分</td>
+                        <td><if condition="$row['title']">{$row.title}<else/>无</if></td>
+                        <td>{$row.descrip}</td>
+                        <td>{$row.addtime|date="Y-m-d H:i",###}</td>
+                        <!--<td></td>-->
+                    </tr>
+                </foreach>
+                </tbody>
+            </table>
+            <div class="pager">{$page}</div>
+            <else/>
+            <div class="infoNoData">
+                你还没有积分流水记录呢，快去发表文章赚积分吧！
+            </div>
+        </notempty>
+
+    </div>
+</div>
+<include file="Common:footer" />
+<include file="Member:mfooter" />

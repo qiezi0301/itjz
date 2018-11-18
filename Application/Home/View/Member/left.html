@@ -1,0 +1,133 @@
+<div class="member_right">
+    <div class="member_per">
+        <div class="panel clearfix">
+            <div class="panel-info clearfix">
+                <a href="javascript:void(0)" id="replaceImg">
+                    <img id="finalImg" class="round-image" width="50" height="50" src="{$member.id|get_face}" alt="头像">
+                </a>
+                <div class="name-job">
+                    <h4 class="myname">
+                        <if condition="$member['nickname']">{$member.nickname}<else />{$member.username}</if>
+                    </h4>
+                    <p class="job-title">{$member.groupname}</p>
+                </div>
+            </div>
+            <div class="sign-wrap">
+                <textarea id="signed_textarea" class="signed_textarea" disabled autocomplete="off"><if condition="!$member['signature']">这位童鞋很懒，什么也没有留下～～！<else />{$member.signature}</if>
+                </textarea>
+                <em id="signed_edit" class="signed_edit"></em>
+            </div>
+            <p id="signed_error" class="signed_error"></p>
+            <div class="rank-points">
+                <ul class="clearfix">
+                    <li class="mp-item">
+                        <a class="mp-atag" href="{:U('Member/logs')}">
+                            <span class="mp-title">积分</span>
+                            <span class="mp-num">{$member.score}</span>
+                        </a>
+                    </li>
+    <!--                             <li class="mp-item">
+                        <a class="mp-atag" href="http://www.sucaihuo.com/member/points.html">
+                            <span class="mp-title">火币</span>
+                            <span class="mp-num">0.0</span>
+                        </a>
+                                              <a onclick="huobi_change_points()">兑换积分</a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+                
+
+    <div class="member_per">
+        <php>
+            $php_self=substr($_SERVER['PHP_SELF'],strrpos($_SERVER['PHP_SELF'],'/')+1);
+        </php>
+        <ul class="nav panel">
+            <!-- <li><a <if condition="$php_self eq 'info.html'">class="active"</if> href="{:U('Member/info')}" ><i class="icon-nav icon-tick"></i>我的主页</a></li> -->
+            <li><a <if condition="$php_self eq 'set.html'">class="active"</if> href="{:U('Member/set')}" ><i class="icon-nav icon-note"></i>我的设置</a></li>
+            <li><a <if condition="$php_self eq 'logs.html'">class="active"</if> href="{:U('Member/logs')}" ><i class="icon-nav icon-msg"></i>积分明细</a></li>
+            <li><a <if condition="$php_self eq 'comments.html'">class="active"</if> href="{:U('Member/comments')}" ><i class="icon-nav icon-plan"></i>我的评论</a></li>
+            <!-- <li><a <if condition="$php_self eq 'order.html'">class="active"</if> href="{:U('Member/order')}" ><i class="icon-nav icon-plan"></i>我的订单</a></li> -->
+            <!-- <li><a <if condition="$php_self eq 'sign.html'">class="active"</if> href="{:U('Member/sign')}" ><i class="icon-nav icon-resp"></i>我的签到</a></li> -->
+            <li><a <if condition="$php_self eq 'downloads.html'">class="active"</if> href="{:U('Member/downloads')}" ><i class="icon-nav icon-wiki"></i>下载记录</a></li>
+            <!-- <li><a <if condition="$php_self eq 'uploads.html'">class="active"</if> href="{:U('Member/uploads')}" ><i class="icon-nav icon-code"></i>我的上传</a></li>
+            <li><a <if condition="$php_self eq 'topic.html'">class="active"</if> href="{:U('Member/topic')}" ><i class="icon-nav icon-ques"></i>我的话题</a></li> -->
+            <!-- <li><a <if condition="$php_self eq 'message.html'">class="active"</if> href="{:U('Member/message')}" ><i class="icon-nav icon-msg"></i>我的消息</a></li> -->
+    <!--            <li><a <if condition="$php_self eq 'withdraw.html'">class="active"</if> href="{:U('Member/withdraw')}" ><i class="icon-nav icon-addques"></i>我的提现</a></li>-->
+            <!-- <li><a <if condition="$php_self eq 'invitors.html'">class="active"</if> href="{:U('Member/invitors')}" ><i class="icon-nav icon-user"></i>我的下线</a></li> -->
+            <!-- <li><a <if condition="$php_self eq 'templates.html'">class="active"</if> href="{:U('Member/templates')}" ><i class="icon-nav icon-flag"></i>我的模板</a></li> -->
+
+        </ul>
+    </div>
+
+    <!--     <div class="member_per">
+            <ul class="space-data panel">
+                <li>
+                    <span class="icon-clock icon" title="下载"></span>
+                    下载：
+                    <a href="http://www.sucaihuo.com/member/downloads.html">0次</a>
+                </li>
+                <li>
+                    <span class="icon-tick icon" title="收藏"></span>
+                    收藏：
+                    <a href="http://www.sucaihuo.com/member/collects.html">0条</a>
+                </li>
+                <li>
+                    <span class="icon-note icon" title="签到"></span>
+                    签到：
+                    <a class="countNote" href="http://www.sucaihuo.com/member/sign.html">0次</a>
+                </li>
+                            <!--            <li>
+                    <span class="icon-ques icon" title="发表"></span>
+                    话题：
+                    <a href="">0条</a>
+                </li>-->
+                            <!--            <li>
+                    <span class="icon-chat icon" title="回答"></span>
+                    回答：
+                    <a href="">0条</a>
+                </li>
+                <li>
+                    <span class="icon-code icon" title="代码"></span>
+                    代码：
+                    <a href="">0条</a>
+                </li>
+                <li>
+                    <span class="icon-user icon" title="粉丝"></span>
+                    粉丝：
+                    <a href="">0个</a>
+                </li>
+            </ul>
+        </div> -->
+</div> 
+<!--图片裁剪框 start-->
+<div style="display: none;" class="tailoring-container">
+    <div class="black-cloth" onclick="closeTailor(this)"></div>
+    <div class="tailoring-content" style="top: 128px; left: 157px;">
+        <div class="tailoring-content-one">
+            <label title="上传图片" for="chooseImg" class="l-btn choose-btn">
+                <input type="file" accept="image/jpg,image/jpeg,image/png" name="file" id="chooseImg" class="hidden" onchange="selectImg(this)">
+                选择图片
+            </label>
+            <div class="close-tailoring" onclick="closeTailor(this)">×</div>
+        </div>
+        <div class="tailoring-content-two">
+            <div class="tailoring-box-parcel">
+                <img id="tailoringImg">
+            </div>
+            <div class="preview-box-parcel">
+                <p>图片预览：</p>
+                <div class="square previewImg"></div>
+                <div class="circular previewImg"></div>
+            </div>
+        </div>
+        <div class="tailoring-content-three">
+            <button class="l-btn cropper-reset-btn">复位</button>
+            <button class="l-btn cropper-rotate-btn">旋转</button>
+            <button class="l-btn cropper-scaleX-btn">换向</button>
+            <button class="l-btn sureCut" id="sureCut">确定</button>
+        </div>
+    </div>
+</div>
+<!--图片裁剪框 end-->

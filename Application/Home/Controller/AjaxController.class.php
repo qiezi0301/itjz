@@ -166,4 +166,63 @@ class AjaxController extends CommonController{
     	}
 
     }
+
+    public function signature(){
+
+        $uid = get_cookie('uid');
+
+        if (!IS_AJAX || !IS_POST) {
+            $this->error('非法请求');
+        }
+
+        $data['signature'] = I('content', '');
+        $data['userid'] = $uid;
+
+        if (M('memberdetail')->save($data) !== false) {
+            echo json_encode(array("code" => '200', "message" => '保存成功')); 
+        }else{
+            echo json_encode(array("code" => '500', "message" => '保存失败')); 
+        }        
+    }
+
+    //Ajax修改个人资料
+    public function updateInfo(){
+        $uid = get_cookie('uid');
+
+        if (!IS_AJAX || !IS_POST) {
+            $this->error('非法请求');
+        }
+
+        $data['nickname'] = I('nickname', '', 'htmlspecialchars,trim');
+        $data['qq']       = I('qq_num', '');
+        $data['job'] = I('job', '', 'htmlspecialchars,trim');
+        $data['address']  = I('area', '');
+        $data['sex']      = I('sex', 0, 'intval');
+        // $data['birthday'] = I('birthday', '0000-00-00');
+        // $data['tel']      = I('tel', '');
+        $data['signature']   = I('signature', '');
+        $data['maxim']    = I('maxim', '');
+
+        $data['userid']     = $uid;
+        $data['updatetime'] = time();
+        $new                = I('new', 0, 'intval');
+        if (empty($data['nickname'])) {
+            $this->error('请输入姓名！');
+        }
+
+        $result = true;
+        if ($new) {
+            $result = M('memberdetail')->add($data);
+        } else {
+            $result = M('memberdetail')->save($data);
+        }
+
+        if (false !== $result) {
+            echo json_encode(array("code" => '200', "message" => '修改基本资料成功')); 
+        } else {
+            echo json_encode(array("code" => '500', "message" => '修改基本资料失败')); 
+        }
+        exit();
+        
+    }
 }

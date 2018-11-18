@@ -597,8 +597,8 @@ function D2($name = '', $tableName = '', $layer = '')
 function get_username($userid = 0) {
     $user_name = '';
     if($userid > 0){
-        $rs = M('user')->field('name')->find($userid);
-        $user_name = $rs['name'];
+        $rs = M('member')->field('username')->find($userid);
+        $user_name = $rs['username'];
     }else{
         $user_name = '管理员';
     }    
@@ -870,4 +870,21 @@ function addPoints($title, $points, $uid, $descrip, $type){
     $log['descrip'] = $descrip;
     M('member_slog')->add($log);
     M('member')->where(array('id'=>$uid))->setInc('score',$points);
+}
+
+/**
+ * 获取联动(字典)项的值
+ * @param string $group 联动组名
+ * @param integer $value 联动值
+ * @return string
+ */
+function get_item_value($group, $value = 0)
+{
+    //return $value.'--<br>';
+    ${'item_' . $group} = get_item($group);
+    if (isset(${'item_' . $group}[$value])) {
+        return ${'item_' . $group}[$value];
+    } else {
+        return "保密";
+    }
 }

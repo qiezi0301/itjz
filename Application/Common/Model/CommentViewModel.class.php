@@ -17,6 +17,12 @@ class CommentViewModel extends ViewModel
             '_on'       => 'comment.cid = classs.id', //_on 对应上面LEFT关联条件
             '_type'     => 'LEFT',
         ),
+        'soft'   => array(
+            'tag'      => 'tag',
+            'litpic'      => 'litpic',
+            '_on'       => 'comment.postid = soft.id', //_on 对应上面LEFT关联条件
+            '_type'     => 'LEFT',
+        ),
         'member'  => array(
             'face'     => 'face', //显示字段name as model
             //'username' => 'username', //显示字段name as model

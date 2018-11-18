@@ -5,7 +5,7 @@ use Common\Lib\Category;
 
 class CommonController extends Controller {
     //_initialize自动运行方法，在每个方法前，系统会首先运动这个方法
-    public function _initialize(){
+    protected function _initialize(){
         $pid=I('get.pid', 0, 'intval');
         //取出顶级分类
         $classs=M('classs')->where("pid = 0")->select();

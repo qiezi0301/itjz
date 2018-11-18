@@ -602,7 +602,7 @@ span.title a.blue:link, span.title a.blue:visited {
     margin-top: 11px;
 }
 p.tags a {
-    background-color: #cbcbcb;
+    background-color: #eee;
     border-radius: 2px;
     color: #fff;
     display: inline-block;
