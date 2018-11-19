@@ -169,7 +169,7 @@ class SoftController extends CommonController {
         $this->assign('subcate', $subcate);
         $this->assign('subcate2', $subcate2);
         $this->assign('soft',$soft);
-        $this->assign('title',$self['cname']);
+        $this->assign('title',$self['cname'].'-');
         $this->assign('proplist',$proplist);
         $this->assign('classstop',$self);
     	$this->assign('keyword',$keyword);
@@ -296,7 +296,7 @@ class SoftController extends CommonController {
         $this->assign('count',$count);
         $this->assign('page',$page->show());
         $this->assign('description',$data['description']);
-        $this->assign('title',$data['title']);
+        $this->assign('title',$data['title'].'-');
         $this->assign('pcate',$pcate);
         $this->assign('tag',$tag);
         $this->assign('proplist',$proplist);

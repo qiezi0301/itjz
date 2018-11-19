@@ -888,3 +888,15 @@ function get_item_value($group, $value = 0)
         return "保密";
     }
 }
+
+function get_user(){
+    $uid = intval(get_cookie('uid'));
+    $res = '';
+    if ($uid > 0) {
+        $user = D('MemberView')->nofield('password,encrypt')->find($uid);
+        if($user){
+            $res = $user;
+        }
+    }
+    return $res;
+}

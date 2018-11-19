@@ -129,7 +129,7 @@
                 </div>
 
                 <span class="btnbox">
-                    <a class="bigbtn download notlogin" onclick="downloadZipBox('1', '0', '200', '373', '15')">下载资源</a>
+                    <a class="bigbtn download notlogin" onclick="downloadZipBox('1', '0', '{$data.scores}', '{$data.id}', '15')">下载资源</a>
                     <span class="dlcount">下载积分：<strong class="orange">{$data.scores}</strong>积分</span>
                 </span>
 
@@ -287,32 +287,29 @@
 <!-- 下载弹窗 -->
 <div id="download_box" class="modal fade window_box">
     <div class="pop_title">
-        <div class="pop_name">Thinkphp小程序商城源码加后台管理<span class="red">(原创)</span></div>
+        <div class="pop_name">{$data.title}</div>
         <i class="pop_close" onclick="$('#download_box').modal('hide')"></i>
     </div>
     <div class="pop_content" style="padding:0 70px 0 70px">
         <div class="download_info">
             <i class="fa fa-btc"></i>我的积分余额：<span class="download_mymoney" id="download_mymoney">0</span>
-            <i class="fa fa-download"></i> 已下载次数：<span class="download_times">518</span>
+            <i class="fa fa-download"></i> 已下载次数：<span class="download_times">{$data.downnum}</span>
         </div>
         <div class="download_btns clearfix">
-            <span class="download_money" id="download_money">所需积分：<span class="en money_del">200</span><span id="points_money" class="en"></span></span>
-            <a href="javascript:void(0)" onclick="downloadZip('373', '15')" class="download_btn" id="download_btn"><i class="fa fa-download"></i> <span id='download_start' data-tip="开始下载">开始下载</span></a>  
+            <span class="download_money" id="download_money">所需积分：<span class="en money_del">{$data.scores}</span><span id="points_money" class="en"></span></span>
+            <a href="javascript:void(0)" onclick="downloadZip('{$data.id}', '15')" class="download_btn" id="download_btn"><i class="fa fa-download"></i> <span id='download_start' data-tip="开始下载">开始下载</span></a>  
         </div>
     </div>
     <div id="points_not_enough" class="alert alert-danger top20 dou2" role="alert" style="display: none">
         <i class="fa fa-frown-o"></i> 
-        <span id="points_enough" >亲，积分不够，<b><a href="{:U('Member/pay')}" target="_blank" style="color: #24B900; font-size:17px">在线充值</a></b>或联系QQ3401083589人工充值
-        </span>
+        <span id="points_enough" >亲，积分不够，联系QQ188316065人工充值或评论获取积分</span>
     </div>
 
     <div id="download_result" class="alert alert-danger top20 dou2" role="alert" style="display: none"></div>
 
     <div id="original_download_tip" class="alert alert-danger top20 dou2" role="alert" style="display: none">
-        <i class="fa fa-smile-o"></i> 
-        <span >亲，vip会员下载<strong>原创</strong>作品 积分<strong style='font-size:16px;'>5</strong> 折，其余免积分下载</span>
-        <p>PS:尊重原创作者劳动成果，感谢分享！</p>
-        <p>充值方式：<b><a href="{:U('Member/pay')}" target="_blank" style="color: #24B900; font-size:17px">在线充值</a></b> 或联系QQ3401083589人工充值</p>
+        
+        <span> <i class="fa fa-smile-o"></i> 积分获取：</span>1.评论获取：每天限评论5次，每次评论 <strong class="red">5</strong> 积分; &nbsp; 2.登录获取：每天第一次登录获取 <strong class="red">2</strong> 积分
     </div>
 </div>
 <!-- 
@@ -341,7 +338,7 @@
 </div>-->
 </div>
 </div>
-
+    <!-- 右边栏 -->
     <div class="sidebar">
         <notempty name="like_softlist">
             <div class="sidebar_per sidebar_first">

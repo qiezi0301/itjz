@@ -104,7 +104,6 @@ class MemberController extends CommonController {
 
     public function downloads(){
         $uid = get_cookie('uid');
-        echo $uid;
         $map['uid'] = $uid;
         $count = D('DownloadView')->where($map)->count();
         $thisPage = new \Common\Lib\Page($count, 15);

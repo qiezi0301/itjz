@@ -661,11 +661,14 @@ function closeWeinxiLoginBox() {
     $("#windown_box").modal("hide");
     clearInterval(t)
 }
+
+// 下载
 function downloadZipBox(is_original, points_type, points, id, mtype) {
+
     $.get(getUrl("Ajax/downloadZipBox"), {
         is_original: is_original,
-        points: points,
         points_type: points_type,
+        points: points,
         id: id,
         mtype: mtype
     }, function(data) {
@@ -697,8 +700,9 @@ function downloadZipBox(is_original, points_type, points, id, mtype) {
                 $("#points_not_enough").show().html("已下载的素材再次下载永久不扣" + points_type_words + "！")
             }
         } else {
-            showWindowBox();
-            $("#windown_box").attr("data-func", "downloadZipBox(" + is_original + ",'" + points_type + "','" + points + "','" + id + "','" + mtype + "')");
+            alert("未登录，请先登录！");
+            // showWindowBox();
+            // $("#windown_box").attr("data-func", "downloadZipBox(" + is_original + ",'" + points_type + "','" + points + "','" + id + "','" + mtype + "')");
             return false
         }
     }, "json")
@@ -729,8 +733,9 @@ function downloadZip(id, mtype) {
         $("#download_btn").removeClass("disabled");
         $("#download_start").text($("#download_start").attr("data-tip"));
         if (data.code == "login") {
-            showWindowBox();
-            $("#windown_box").attr("data-func", "downloadZip(" + id + ",'" + mtype + "')")
+            alert("未登录，请先登录！");
+            // showWindowBox();
+            // $("#windown_box").attr("data-func", "downloadZipLocal(" + id + ",'" + mtype + "')")
         } else {
             if (data.code == "pwd_pay") {
                 showPwdPayBox();
@@ -767,8 +772,9 @@ function downloadZipLocal(id, mtype) {
         $("#download_btn").removeClass("disabled");
         $("#download_start").text($("#download_start").attr("data-tip"));
         if (data.result == "login") {
-            showWindowBox();
-            $("#windown_box").attr("data-func", "downloadZipLocal(" + id + ",'" + mtype + "')")
+            alert("未登录，请先登录！");
+            // showWindowBox();
+            // $("#windown_box").attr("data-func", "downloadZipLocal(" + id + ",'" + mtype + "')")
         } else {
             if (data.code == "points_not_enough" || data.code == "huobi_not_enough") {
                 $("#points_not_enough").show()
@@ -777,10 +783,10 @@ function downloadZipLocal(id, mtype) {
                     if (data.wangpan_url != "") {
                         $("#download_result").html("百度网盘链接：<a href=" + data.wangpan_url + " target='_blank'>" + data.wangpan_url + "</a> 密码：" + data.wangpan_pwd + "，失效请联系管理员QQ 1556472052").show()
                     } else {
-                        $("#download_result").html("该源码需要手动发货，请联系管理员QQ 1556472052").show()
+                        $("#download_result").html("该源码需要手动发货，请联系管理员QQ 188316065").show()
                     }
                 } else {
-                    $("#download_result").html("该源码需要手动发货，请联系管理员QQ 416148489").show()
+                    $("#download_result").html("该源码需要手动发货，请联系管理员QQ 188316065").show()
                 }
             }
         }
