@@ -764,7 +764,10 @@ function set_cookie($args, $key = '')
  */
 function check_verify($code, $id = 1)
 {
-    $verify = new \Think\Verify();
+    $config = array(
+        'reset'     =>  false,
+    );
+    $verify = new \Think\Verify($config);
     return $verify->check($code, $id);
 }
 

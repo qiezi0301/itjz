@@ -19,8 +19,7 @@ class PublicController extends CommonController {
      * @param  integer $img_flag 是否是图片(带缩略图)
      * @return [type]               [description]
      */
-    public function upload($img_flag = 0)
-    {
+    public function upload($img_flag = 0){
         header("Content-Type:text/html; charset=utf-8"); //不然返回中文乱码
         $result   = array('state' => '失败', 'url' => '', 'name' => '', 'original' => '');
         $sub_path = I('post.sfile', '', 'trim,htmlspecialchars'); //判断其他子目录

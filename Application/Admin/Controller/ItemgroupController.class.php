@@ -1,7 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
-class ItemgroupController extends Controller {
+class ItemgroupController extends CommonController {
     public function index(){
 
 		//实例化数据模型

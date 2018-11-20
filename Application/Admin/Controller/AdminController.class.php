@@ -32,20 +32,36 @@ class AdminController extends Controller {
         //使用函数格式化字符串为数组
         parse_str($str, $arr);
 
-        $arr['time']=time();
-        $arr['password'] = md5($arr['password']);
         //实例化数据模型
         $model=D('admin');
 
         //插入数据
-        if ($model->create($arr)) {
-            $id = $model->add();
+        if (!$model->create()) {
+            exit($User->getError());
+            // echo "0";
+        }
+
+        $passwordinfo = get_password($arr['password']);
+
+        $userData     = array(
+            'username'  => trim($arr['username']),
+            'password'  => $passwordinfo['password'],
+            'encrypt'   => $passwordinfo['encrypt'],
+            'realname'  => trim($arr['realname']),
+            'logintime' => time(),
+            'created_at' => time(),
+            'loginip'   => get_client_ip(),
+            'statu'    => $arr['statu'],
+        );
+
+        if ($id = $model->add($userData)) {
             $this->data=$model->find($id);
             echo $this->fetch();
-        } else {
-            // echo $model->getError();
+        }else{
             echo "0";
-        }        
+        }
+        
+
     }
 
     //ajax删除单条数据
@@ -87,7 +103,11 @@ class AdminController extends Controller {
         $model=M('admin');
 
         //查询数据
-        $this->data=$model->find($id);
+        $user=$model->find($id);
+        if ($user) {
+            $user['password'] = '';
+        }
+        $this->data=$user;
         echo $this->fetch();
     }
 
@@ -100,13 +120,40 @@ class AdminController extends Controller {
         //使用函数格式化字符串为数组
         parse_str($str, $arr);
 
+        //M验证
+        $password = trim($arr['password']);
+        $username = trim($arr['username']);
+        $uid      = $arr[id];
+        if (empty($username)) {
+            $this->error('用户名必须填写！');
+        }
+
+        if (M('admin')->where(array('username' => $username, 'id' => array('neq', $uid)))->find()) {
+            $this->error('用户名已经存在！');
+        }
+
+        $data = array(
+            'id'        => $uid,
+            'username'  => $username,
+            'realname'  => trim($arr['realname']),
+            'logintime' => time(),
+            'statu'    => $arr['statu'],
+        );
+
+        //如果密码不为空，即是修改了密码
+        if (!$password == '') {
+            $passwordinfo     = get_password($password);
+            $data['password'] = $passwordinfo['password'];
+            $data['encrypt']  = $passwordinfo['encrypt'];
+        }
+
         //实例化数据模型
         $model=D('admin');
 
         //更新数据
-        if ($model->create($arr)) {
+        if ($model->create($data)) {
             $id = $model->save();
-            $this->data=$model->find($arr[id]);
+            $this->data=$model->find($data[id]);
             echo $this->fetch();
         } else {
             echo "0";

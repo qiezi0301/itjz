@@ -46,6 +46,7 @@
                                             <th>ID</th>
                                             <th>NAME</th>
                                             <th>PASS</th>
+                                            <th>ENCRYPT</th>
                                             <th>加入时间</th>
                                             <th>登录时间</th>
                                             <th>登录次数</th>
@@ -60,6 +61,7 @@
                                                 <td class="check_id">{$admin[id]}</td>
                                                 <td class="username">{$admin[username]}</td>
                                                 <td>{$admin[password]}</td>
+                                                <td>{$admin[encrypt]}</td>
                                                 <td>{:date('Y-m-d H:i:s', $admin[created_at])}</td>
                                                 <if condition="$admin['logintime']">
                                                     <td>{:date('Y-m-d H:i:s', $admin[logintime])}</td>
@@ -67,10 +69,10 @@
                                                     <td>未登录过</td>
                                                 </if>
                                                 <td>{$admin['loginnum']}</td>
-                                                <if condition="$admin[statu] eq 0">
-                                                    <td><span class="btn btn-info" onclick="statu(this,{$admin[id]},0)">正常</span></td>
+                                                <if condition="$admin[statu] eq 1">
+                                                    <td><span class="btn btn-info" onclick="statu(this,{$admin[id]},1)">正常</span></td>
                                                 <else/>
-                                                    <td><span class="btn btn-danger"  onclick="statu(this,{$admin[id]},1)">禁用</span></td>
+                                                    <td><span class="btn btn-danger"  onclick="statu(this,{$admin[id]},0)">禁用</span></td>
                                                 </if>
                                                 <td>
                                                     <span class="glyphicon glyphicon-pencil" onclick="edit({$admin[id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -124,8 +126,8 @@
                             <label class="col-sm-2 control-label">STATU</label>
                             <div class="col-sm-8">
                                 <label>
-                                    <input type="radio" name="statu" value="1" id="">&nbsp;&nbsp;&nbsp;&nbsp;禁用&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="statu" value="0" checked id="">&nbsp;&nbsp;&nbsp;&nbsp;正常
+                                    <input type="radio" name="statu" value="1" checked id="">&nbsp;&nbsp;&nbsp;&nbsp;正常
+                                    <input type="radio" name="statu" value="0" id="">&nbsp;&nbsp;&nbsp;&nbsp;禁用&nbsp;&nbsp;&nbsp;&nbsp;
                                 </label>
                             </div>
                         </div>
@@ -366,17 +368,18 @@
             //禁用状态
             $.post("{:U('ajax_statu')}",{id:id,statu:'0'},function(data){
                 if (data==1) {
-                    $(obj).html('正常');
-                    $(obj).addClass('btn-info').removeClass('btn-danger');
+                    $(obj).html('禁用');
+                    $(obj).addClass('btn-danger').removeClass('btn-info');
                     $(obj).attr('onclick','statu(this,'+id+',0)');
+
                 }
             });
         } else {
             //正常状态
             $.post("{:U('ajax_statu')}",{id:id,statu:'1'},function(data){
                 if (data==1) {
-                    $(obj).html('禁用');
-                    $(obj).addClass('btn-danger').removeClass('btn-info');
+                    $(obj).html('正常');
+                    $(obj).addClass('btn-info').removeClass('btn-danger');
                     $(obj).attr('onclick','statu(this,'+id+',1)');
                 }
             });

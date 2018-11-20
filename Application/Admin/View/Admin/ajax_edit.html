@@ -10,7 +10,7 @@
     <div class="form-group">
         <label class="col-sm-2 control-label">PASS</label>
         <div class="col-sm-8">
-            <input type="text" name="password" value="{$data[password]}" class="form-control">
+            <input type="text" name="password" value="{$data[password]}" class="form-control" placeholder="不修改请留空">
         </div>
     </div>
     <div class="hr-line-dashed"></div>
@@ -18,9 +18,9 @@
         <label for="" class="col-sm-2 control-label">状态</label>
         <div class="col-sm-9">
             <label class="radio-inline">
-            <input type="radio" name="statu" value="0" <if condition="$data[statu] eq 0">checked="checked"</if> />开启</label>
+            <input type="radio" name="statu" value="1" <if condition="$data[statu] eq 1">checked="checked"</if> />开启</label>
             <label class="radio-inline">
-            <input type="radio" name="statu" value="1" <if condition="$data[statu] eq 1">checked="checked"</if> />禁用</label>
+            <input type="radio" name="statu" value="0" <if condition="$data[statu] eq 0">checked="checked"</if> />禁用</label>
         </div>
     </div>
     <div class="hr-line-dashed"></div>

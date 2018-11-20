@@ -1,0 +1,63 @@
+<include file="Common/head"/>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen  animated fadeInDown">
+        <div>
+            <div class="logo-name">
+
+                <h5 class="logo-name">HI</h5>
+
+            </div>
+            <h3>欢迎使用 ITJZ</h3>
+
+            <form class="m-t" role="form" action="{:U('Login/login')}" method="post">
+                <div class="form-group">
+                    <input type="name" class="form-control" placeholder="管理员账户" name="username" required="">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="管理员密码" name="password" required="">
+                </div>
+                <div class="form-group">
+                    <input type="code" class="form-control" placeholder="请输入图片验证码" name="code" autocomplete="off" required=""/></td>
+                </div>
+                <div class="form-group">
+                    <img src="{:U('Login/verify',array('id' => 'a_login_1'))}" data-url="{:U('Login/verify',array('id' => 'a_login_1'))}" align="absmiddle" id="vcode"  class="vcode" style="border-radius: 5px; width:300px; height: 34px" />
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
+            </form>
+        </div>
+    </div>
+    <include file="Common/javascripts"/>
+</body>
+
+<script>
+    $(function(){
+        $('#vcode').click(function(event) {
+            /* Act on the event */
+            var verifyUrl = $(this).attr('data-url');
+            verifyUrl += '#'+Math.random();
+            $(this).attr("src",verifyUrl);
+        });
+
+        var code = $("input[name='code']");
+        $("input[name='code']").blur(function(){
+            if($.trim(code.val())==''){
+                layer.tips('验证码不能为空', "input[name='code']");
+                code.focus();
+                return ;
+            }
+            
+            //发送ajax请求
+            $.post('{:U("check_verify")}',{code:$.trim(code.val())},function(data){
+                if (data==1) {
+                    layer.tips('验证码正确', "input[name='code']");
+                } else {
+                    layer.tips('验证码错误', "input[name='code']");
+                }
+            });
+        });
+    });
+</script>
+
+</html>
