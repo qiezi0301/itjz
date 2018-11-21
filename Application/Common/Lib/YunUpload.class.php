@@ -62,7 +62,7 @@ class YunUpload
                 $new_info = array();
                 foreach ($info as $k => $v) {
 
-                    $v['url'] = get_url_path(C('CFG_UPLOAD_ROOTPATH') ? C('CFG_UPLOAD_ROOTPATH') : '/uploads') . $v['savepath'] . $v['savename'];
+                    $v['url'] = get_url_path(C('CFG_UPLOAD_ROOTPATH') ? C('CFG_UPLOAD_ROOTPATH') : '/Uploads') . $v['savepath'] . $v['savename'];
                     //是否有缩略图
                     if ($this->thumFlag) {
                         //读取缩略图配置信息
@@ -117,7 +117,7 @@ class YunUpload
                 $new_info = array();
                 foreach ($info as $k => $v) {
 
-                    $v['url'] = get_url_path(C('CFG_UPLOAD_ROOTPATH') ? C('CFG_UPLOAD_ROOTPATH') : '/uploads') . $v['savepath'] . $v['savename'];
+                    $v['url'] = get_url_path(C('CFG_UPLOAD_ROOTPATH') ? C('CFG_UPLOAD_ROOTPATH') : '/Uploads') . $v['savepath'] . $v['savename'];
                     //是否有缩略图
                     if ($this->thumFlag) {
                         //读取缩略图配置信息
@@ -182,7 +182,7 @@ class YunUpload
                         break; //失败跳过
                     }
 
-                    $v['url'] = get_url_path(C('CFG_UPLOAD_ROOTPATH') ? C('CFG_UPLOAD_ROOTPATH') : '/uploads') . $v['savepath'] . $v['savename'];
+                    $v['url'] = get_url_path(C('CFG_UPLOAD_ROOTPATH') ? C('CFG_UPLOAD_ROOTPATH') : '/Uploads') . $v['savepath'] . $v['savename'];
                     //是否有缩略图
                     if ($this->thumFlag) {
                         //读取缩略图配置信息
@@ -662,7 +662,7 @@ class YunUpload
 			$new_info = array();
 			foreach ($info as $k => $v) {
 
-				$v['url'] = get_url_path(C('CFG_UPLOAD_ROOTPATH') ? C('CFG_UPLOAD_ROOTPATH') : '/uploads') . $v['savepath'] . $v['savename'];
+				$v['url'] = get_url_path(C('CFG_UPLOAD_ROOTPATH') ? C('CFG_UPLOAD_ROOTPATH') : '/Uploads') . $v['savepath'] . $v['savename'];
 				//是否有缩略图
 				if ($this->thumFlag) {
 					//读取缩略图配置信息

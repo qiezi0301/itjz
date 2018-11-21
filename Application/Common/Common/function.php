@@ -183,7 +183,7 @@ function get_picture($str, $width = 0, $height = 0, $rnd = false)
         $str = '';
     }
     if (empty($str)) {
-        $str      = __ROOT__ . '/uploads/system/nopic.png';
+        $str      = __ROOT__ . '/Uploads/system/nopic.png';
         $ext      = 'png';
         $ext_dest = 'png';
         $width    = 0;
@@ -678,13 +678,16 @@ function get_random($length, $chars = '0123456789')
  * @return bool
  * */
 function sendMail($to, $title, $content) {
-    Vendor('PHPMailer.class#phpmailer');
+    // Vendor('PHPMailer.class#phpmailer');
+    require './ThinkPHP/Library/Vendor/phpmailer/class.phpmailer.php';
+    require './ThinkPHP/Library/Vendor/phpmailer/class.smtp.php';
 
-    $mail = new PHPMailer;
-    //$mail->Priority = 3;
-    // 设置PHPMailer使用SMTP服务器发送Email
-    $mail->IsSMTP();
-    $mail->Host=C('MAIL_HOST'); //smtp服务器的名称（这里以QQ邮箱为例）
+    $mail=new PHPMailer();
+    $mail->IsSMTP(); // 启用SMTP
+    $mail->Host=C('MAIL_HOST'); //smtp服务器的名称
+    $mail->Port = 465; # ssl方式 用465端口
+    $mail->SMTPSecure='ssl'; //阿里云不支持25端口，所以只能用ssl连接
+
     $mail->SMTPAuth = C('MAIL_SMTPAUTH'); //启用smtp认证
     $mail->Username = C('MAIL_USERNAME'); //发件人邮箱名
     $mail->Password = C('MAIL_PASSWORD') ; //163邮箱发件人授权密码

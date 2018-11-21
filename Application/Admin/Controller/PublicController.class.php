@@ -42,17 +42,17 @@ class PublicController extends CommonController {
     //文件/夹管理
     public function browseFile($spath = '', $stype = 'file')
     {
-        $base_path  = '/uploads/img1';
+        $base_path  = '/Uploads/img1';
         $enocdeflag = I('encodeflag', 0, 'intval');
         switch ($stype) {
             case 'picture':
-                $base_path = '/uploads/img1';
+                $base_path = '/Uploads/img1';
                 break;
             case 'file':
-                $base_path = '/uploads/file1';
+                $base_path = '/Uploads/file1';
                 break;
             case 'ad':
-                $base_path = '/uploads/abc1';
+                $base_path = '/Uploads/abc1';
                 break;
             default:
                 exit('参数错误');

@@ -14,7 +14,8 @@ class MemberController extends CommonController {
 
     	$count = D('MemberView')->where($where)->count();
 
-    	$page = new \Think\page($count,20);
+    	//实例化分页
+        $page=new \Think\Page($count, 20);
     	$page->setConfig('theme', '%HEADER% %FIRST% %UP_PAGE% %LINK_PAGE% %DOWN_PAGE% %END%');
     	$limit = $page->firstRow . ',' . $page->listRows;
     	$list = D('MemberView')->where($where)->order('id desc')->limit($limit)->select();
