@@ -11,6 +11,22 @@ class PublicController extends CommonController {
         $this->assign('phpversion', phpversion());
         $this->assign('software', $_SERVER["SERVER_SOFTWARE"]);
         $this->assign('os', PHP_OS);
+
+        $_mysql_ver = M()->query('SELECT VERSION() as ver;');
+        if (is_array($_mysql_ver)) {
+            $mysql_ver = $_mysql_ver[0]['ver'];
+        } else {
+            $mysql_ver = '';
+        }
+        $this->assign('mysql_ver', $mysql_ver);
+        $this->assign('saeflag', defined('APP_SAE_FLAG') ? 1 : 0);
+
+        /* uploads */
+        $this->assign('environment_upload', ini_get('file_uploads') ? ini_get('upload_max_filesize') : '不支持');
+        $this->assign('cms_info', rw_data('ver', '', './Data/resource/'));
+
+        $this->assign('type', '首页信息');
+        $this->display();
     }
 
     //上传图片

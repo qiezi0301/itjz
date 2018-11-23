@@ -50,6 +50,7 @@
                                     <tr>
                                         <th class="text-center"><input type="checkbox" id="check"></th>
                                         <th>ID</th>
+                                        <th>头像</th>
                                         <th>邮箱</th>
                                         <th>用户名</th>
                                         <th>会员组</th>
@@ -64,16 +65,17 @@
                                         <tr>
                                             <td class="text-center"><input type="checkbox" name="key[]" value="{$v.id}" ></td>
                                             <td>{$v.id}</td>
+                                            <td class="client-avatar"><img alt="image" src="{$v.id|get_face}"> </td>
                                             <td>{$v.email}</td>
                                             <td>{$v.username}</td>
                                             <td>{$v.groupname}</td>
                                             <td><empty name="v['logintime']">--<else/>{$v.logintime|date='Y-m-d H:i:s',###}</empty></td>
                                             <td>{$v.loginip}</td>
-                                            <td>
+                                            <td class="client-status">
                                                 <if condition="$v['islock']">
-                                                    <font color="#999999">锁定</font>
+                                                    <span class="label label-danger" >锁定</span>
                                                 <else/>
-                                                    <font color="#00900">正常</font>
+                                                    <span class="label label-primary" >正常</span>
                                                 </if>
                                             </td>                                          
                                             

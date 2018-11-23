@@ -34,6 +34,26 @@ class SysController extends CommonController {
         }
     }
 
+    //清除缓存
+    public function clearCache($dellog = false){
+        header("Content-Type:text/html; charset=utf-8"); //不然返回中文乱码
+
+        //清除缓存
+        is_dir(DATA_PATH . '_fields/') && del_dir_file(DATA_PATH . '_fields/', false);
+        is_dir(CACHE_PATH) && del_dir_file(CACHE_PATH, false); //模板缓存（混编后的）
+        echo ('<p>清除模板缓存成功!</p>');
+        is_dir(DATA_PATH) && del_dir_file(DATA_PATH, false); //项目数据（当使用快速缓存函数F的时候，缓存的数据）
+        echo ('<p>清除项目数据成功!</p>');
+        is_dir(TEMP_PATH) && del_dir_file(TEMP_PATH, false); //项目缓存（当S方法缓存类型为File的时候，这里每个文件存放的就是缓存的数据）
+        echo ('<p>清除项目项目缓存成功!</p>');
+        if ($dellog) {
+            is_dir(LOG_PATH) && del_dir_file(LOG_PATH, false); //日志
+        }
+        is_file(RUNTIME_PATH . APP_MODE . '~runtime.php') && @unlink(RUNTIME_PATH . APP_MODE . '~runtime.php'); //RUNTIME_FILE
+
+        echo '清除完成';
+    }
+
     //轮播首页
     public function lunbo_list(){
     	//实例化模型
