@@ -224,8 +224,10 @@ class AjaxController extends CommonController{
             $this->error('请输入姓名！');
         }
 
+        $new                = M('memberdetail')->find($uid);
+
         $result = true;
-        if ($new) {
+        if (!$new) {
             $result = M('memberdetail')->add($data);
         } else {
             $result = M('memberdetail')->save($data);

@@ -2616,7 +2616,7 @@ span.more-sign {
 }
 
 .index_recommend .content .ul_pics li {
-    height: 190px;
+    /*height: 190px;*/
     margin: 8px;
     width: 235px;
     overflow: hidden
@@ -2641,7 +2641,7 @@ span.more-sign {
 .index_recommend .content .ul_pics li a img {
     margin: 0 0 3px;
     width: 233px;
-    height: 160px;
+    /*height: 160px;*/
     border: 1px solid #ddd
 }
 

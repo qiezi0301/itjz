@@ -1,0 +1,57 @@
+<include file="Common/head"/>
+
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{$type}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-wrench"></i> </a>
+                    <a class="close-link"> <i class="fa fa-times"></i> </a>
+                </div>
+            </div>
+
+            <div class="ibox-content">
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <!-- Default panel contents -->     
+                            <div class="panel-heading">个人信息</div>
+                            <div class="panel-body">
+                                <p>用户名：{$Think.session.yang_adm_username}</p>
+                                <p>用户组：<if condition="$Think.session.yang_adm_superadmin" >超级管理员<else />管理员</if></p>
+                                <p>上次登录时间：{$Think.session.yang_adm_logintime}</p>
+                                <p>上次登录IP：{$Think.session.yang_adm_loginip}</p>
+                                <p>登录次数：{$Think.session.yang_adm_loginnum}</p>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">系统信息</div>
+                            <div class="panel-body">
+                                <p>程序版本： V{$cms_info.XYHCMS_VER}</p>
+                                <p>操作系统：{$os}</p>
+                                <p>服务器软件：{$software}</p>
+                                <p>MySQL 版本：{$mysql_ver}</p>
+                                <p>上传文件：{$environment_upload}</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+     <!-- End Panel Other -->
+    </div>
+<include file="Common/javascripts"/>
+</body>
+</html>
