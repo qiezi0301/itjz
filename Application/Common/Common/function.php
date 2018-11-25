@@ -748,19 +748,19 @@ function sendMail($to, $title, $content) {
 
     $mail=new PHPMailer();
     $mail->IsSMTP(); // 启用SMTP
-    $mail->Host=C('MAIL_HOST'); //smtp服务器的名称
-    $mail->Port = 465; # ssl方式 用465端口
+    $mail->Host=C('CFG_EMAIL_HOST'); //smtp服务器的名称
+    $mail->Port = C('CFG_EMAIL_PORT'); # ssl方式 用465端口
     $mail->SMTPSecure='ssl'; //阿里云不支持25端口，所以只能用ssl连接
 
-    $mail->SMTPAuth = C('MAIL_SMTPAUTH'); //启用smtp认证
-    $mail->Username = C('MAIL_USERNAME'); //发件人邮箱名
-    $mail->Password = C('MAIL_PASSWORD') ; //163邮箱发件人授权密码
-    $mail->From = C('MAIL_FROM'); //发件人地址（也就是你的邮箱地址）
-    $mail->FromName = C('MAIL_FROMNAME'); //发件人姓名
+    $mail->SMTPAuth = TRUE; //启用smtp认证
+    $mail->Username = C('CFG_EMAIL_LOGINNAME'); //发件人邮箱名
+    $mail->Password = C('CFG_EMAIL_PASSWORD') ; //163邮箱发件人授权密码
+    $mail->From = C('CFG_EMAIL_FROM'); //发件人地址（也就是你的邮箱地址）
+    $mail->FromName = C('CFG_EMAIL_FROM_NAME'); //发件人姓名
     $mail->AddAddress($to,"尊敬的客户");
     $mail->WordWrap = 50; //设置每行字符长度
-    $mail->IsHTML(C('MAIL_ISHTML')); // 是否HTML格式邮件
-    $mail->CharSet=C('MAIL_CHARSET'); //设置邮件编码
+    $mail->IsHTML(TRUE); // 是否HTML格式邮件
+    $mail->CharSet='utf-8'; //设置邮件编码
     $mail->Subject =$title; //邮件主题
     $mail->Body = $content; //邮件内容
     $mail->AltBody = "这是一个纯文本的身体在非营利的HTML电子邮件客户端"; //邮件正文不支持HTML的备用显示
@@ -969,4 +969,186 @@ function get_user(){
         }
     }
     return $res;
+}
+
+
+/**
+ * 返回保存到attachmentindex表
+ * @param string $name 元素名称
+ * @param integer $typeid 类型
+ * @param string $tvalue 表单类型和可选值 
+ * @param string|integer $vaule 值
+ * @return mixed
+ */
+
+function get_element_html($name,$typeid, $tvalue = '', $vaule = '') {
+
+    if (empty($name) || empty($typeid)) {
+        return '';
+    }
+
+    switch ($typeid) {
+        case 1:
+            $type = 'text';
+            $vaule = intval($vaule);
+            break;
+        case 2:
+            $type = 'text';
+            break;
+        case 3:
+            $type = 'textarea';
+            break;
+        case 4:
+            $type = 'radio';            
+            $vaule = intval($vaule);
+            break;      
+        default:
+            $type = 'text';
+            break;
+    }
+    
+    
+    if (!empty($tvalue)) {
+        $array = explode("\n", str_replace("\r\n", "\n", trim($tvalue,"\r\n")));
+        if (in_array($array[0], array('select','radio','checkbox','text','textarea'))) {
+            $type = $array[0]; 
+            unset($array[0]);
+            if(strpos($tvalue,'|')){
+                $tvalue  = array();
+                foreach ($array as $val) {
+                    list($k, $v) = explode('|', $val);
+                    $tvalue[$k]   = $v;
+                }
+            }else{
+                foreach ($array as $val) {
+                    $tvalue[$val]   = $val;
+                }
+            }
+        }else {
+
+        }
+        
+    }
+    $str = '';
+    switch ($type) {
+        case 'text':
+            $str = '<input type="text"  class="form-control" name="'.$name.'" value="'.$vaule.'">';
+            break;
+        case 'textarea':
+            $str = '<textarea name="'.$name.'" id="'.$name.'" class="form-control" rows="5">'.$vaule.'</textarea>';
+            break;
+        case 'radio':
+            if (!is_array($tvalue)) {
+                $tvalue = array(1=>'是',0=>'否');
+            }
+            foreach ($tvalue as $k => $v) {
+                $str .= '<label class="radio-inline"><input type="radio" name="'.$name.'" value="'.$k.'" ';
+                if ($vaule == $k) {
+                    $str .= 'checked="checked" ';
+                }
+                $str .= '/>'.$v.'</label>';
+            }
+
+            break;
+        case 'checkbox':
+            if (!is_array($tvalue)) {
+                break;
+            }
+            foreach ($tvalue as $k => $v) {
+                $str .= '<label class="checkbox-inline"><input type="checkbox" name="'.$name.'" value="'.$k.'" ';
+                if ($vaule == $k) {
+                    $str .= 'checked="checked" ';                   
+                }
+                $str .= '/>'.$v.'</label>';
+            }
+            break;          
+        case 'select':
+            
+            if (!is_array($tvalue) && false !== strpos($name, 'CFG_THEMESTYLE')) {
+                $tmp = get_file_folder_List('./Public/Home/' , 1);
+                $tvalue = array();
+                foreach ($tmp as $key => $value) {
+                    $tvalue[$value] = $value;
+                }
+            }elseif (!is_array($tvalue) && false !== strpos($name, 'CFG_DEFAULT_TPL')) {
+                $tmp = get_file_folder_List('./Tpl/Home/' , 1);
+                $tvalue = array();
+                foreach ($tmp as $key => $value) {
+                    $tvalue[$value] = $value;
+                }
+            }elseif (!is_array($tvalue) && false !== strpos($name, 'CFG_DEFAULT_MOBILE_TPL')) {
+                $tmp = get_file_folder_List('./Tpl/Mobile/' , 1);
+                $tvalue = array();
+                foreach ($tmp as $key => $value) {
+                    $tvalue[$value] = $value;
+                }
+            }elseif (!is_array($tvalue) && false !== strpos($name, 'CFG_MOBILE_THEMESTYLE')) {
+                $tmp = get_file_folder_List('./Public/Mobile/' , 1);
+                $tvalue = array();
+                foreach ($tmp as $key => $value) {
+                    $tvalue[$value] = $value;
+                }
+            }
+            if (!is_array($tvalue)) {
+                $tvalue = array();
+            }
+
+            $str .= '<select name="'.$name.'" class="form-control">';
+            foreach ($tvalue as $k => $v) {
+                $str .= '<option value="'.$k.'" ';
+                if ($vaule == $k) {
+                    $str .= 'selected="selected" ';                 
+                }
+                $str .= '>'.$v.'</option>';
+            }
+                
+            $str .= '</select>';
+            break;          
+        default:
+            $str = '';
+            break;
+    }
+
+    return $str;
+}
+
+/**
+ * 获取文件目录列表
+ * @param string $pathname 路径
+ * @param integer $fileFlag 文件列表 0所有文件列表,1只读文件夹,2是只读文件(不包含文件夹)
+ * @param string $pathname 路径
+ * @return array
+ */
+function get_file_folder_List($pathname, $fileFlag = 0, $pattern = '*')
+{
+    $fileArray = array();
+    $pathname  = rtrim($pathname, '/') . '/';
+    $list      = glob($pathname . $pattern);
+    foreach ($list as $i => $file) {
+        switch ($fileFlag) {
+            case 0:
+                $fileArray[] = basename($file);
+                break;
+            case 1:
+                if (is_dir($file)) {
+                    $fileArray[] = basename($file);
+                }
+                break;
+
+            case 2:
+                if (is_file($file)) {
+                    $fileArray[] = basename($file);
+                }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    if (empty($fileArray)) {
+        $fileArray = null;
+    }
+
+    return $fileArray;
 }
