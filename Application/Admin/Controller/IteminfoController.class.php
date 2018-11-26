@@ -149,4 +149,17 @@ class IteminfoController extends Controller {
         }
     }
 
+    //批量更新排序
+    public function sort(){
+        $group = I('get.group', '');
+        //exit();
+        foreach ($_POST as $k => $v) {
+            if ($k == 'key') {
+                continue;
+            }
+            M('iteminfo')->where(array('id' => $k))->setField('sort', $v);
+        }
+        $this->redirect('Iteminfo/index', array('group' => $group));
+    }
+
 }

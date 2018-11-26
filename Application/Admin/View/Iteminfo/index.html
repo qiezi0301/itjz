@@ -38,38 +38,40 @@
                                     <button type="button" class="btn btn-outline btn-default" onclick="delAll()">
                                         <i class="glyphicon glyphicon-trash" aria-hidden="true"></i>
                                     </button>
+                                    <button class="btn btn-default" type="button" onclick="doGoSubmit('{:U('sort', array('group' => $group))}','form_do')"><em class="glyphicon glyphicon-th-list"></em> 更新排序</button>
                                 </div>
-
-                                <table id="exampleTableToolbar" data-toggle="table"  data-mobile-responsive="true" data-striped="true" data-classes="table table-no-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th data-checkbox="true" id="dell"></th>
-                                            <th>编号</th>
-                                            <th>名称</th>
-                                            <th>类别组名</th>
-                                            <th>枚举值</th>
-                                            <th>排序</th>
-                                            <th>操作</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="add_row">
-                                        <volist name="data" id="vo">
-                                            <tr id="tr{$vo[id]}">
-                                                <td><input type="checkbox" value="{$vo[id]}" name="key[]" id="check"></td>
-                                                <td class="check_id">{$vo[id]}</td>
-                                                <td class="username">{$vo[name]}</td>
-                                                <td >{$vo.group}</td>
-                                                <td>{$vo.value}</td>
-                                                <td><input type="text" name="{$vo.id}" value="{$vo.sort}" /></td>
-                                                <td>
-                                                    <span class="glyphicon glyphicon-pencil" onclick="edit({$vo[id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span class="glyphicon glyphicon-trash" onclick="del(this,{$vo[id]})"></span>
-                                                </td>
+                                <form action="" method="post" id="form_do" name="form_do">
+                                    <table id="exampleTableToolbar" data-toggle="table"  data-mobile-responsive="true" data-striped="true" data-classes="table table-no-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th data-checkbox="true" id="dell"></th>
+                                                <th>编号</th>
+                                                <th>名称</th>
+                                                <th>类别组名</th>
+                                                <th>枚举值</th>
+                                                <th>排序</th>
+                                                <th>操作</th>
                                             </tr>
-                                        </volist>
-                                    </tbody>
-                                    
-                                </table>
+                                        </thead>
+                                        <tbody id="add_row">
+                                            <volist name="data" id="vo">
+                                                <tr id="tr{$vo[id]}">
+                                                    <td><input type="checkbox" value="{$vo[id]}" name="key[]" id="check"></td>
+                                                    <td class="check_id">{$vo[id]}</td>
+                                                    <td class="username">{$vo[name]}</td>
+                                                    <td >{$vo.group}</td>
+                                                    <td>{$vo.value}</td>
+                                                    <td><input type="text" name="{$vo.id}" value="{$vo.sort}" /></td>
+                                                    <td>
+                                                        <span class="glyphicon glyphicon-pencil" onclick="edit({$vo[id]})" data-toggle="modal" data-target="#edit"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <span class="glyphicon glyphicon-trash" onclick="del(this,{$vo[id]})"></span>
+                                                    </td>
+                                                </tr>
+                                            </volist>
+                                        </tbody>
+                                        
+                                    </table>
+                                </form>
                             </div>
                         </div>
                         {$page}
