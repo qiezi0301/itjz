@@ -1001,6 +1001,9 @@ function get_element_html($name,$typeid, $tvalue = '', $vaule = '') {
         case 4:
             $type = 'radio';            
             $vaule = intval($vaule);
+            break;  
+        case 5:
+            $type = 'file';
             break;      
         default:
             $type = 'text';
@@ -1061,7 +1064,19 @@ function get_element_html($name,$typeid, $tvalue = '', $vaule = '') {
                 }
                 $str .= '/>'.$v.'</label>';
             }
-            break;          
+            break; 
+        case 'file':
+            $str = '<div class="col-sm-7" style="padding-left:0;">';
+            $str .= '<input type="text"  class="col-sm-2 form-control" name="'.$name.'" value="'.$vaule.'" id="litpic" placeholder="图片地址">';
+            $str .= '</div><div class="col-sm-5" style="padding-left:0;">';
+            $str .= '<div class="btn btn-success up-picture-btn">';
+            $str .= '<span><em class="glyphicon glyphicon-plus-sign"></em>添加图片</span>';
+            $str .= '<input id="fileupload" type="file" name="mypic">';
+            $str .= ' </div> </div>';
+            $str .= '<div class="form-group"><div class="col-sm-9"><div class="litpic_tip"></div><div id="litpic_show">';
+            $str .= ' <if condition="'.$vaule.'"><img src="'.$vaule.'" height="60" /></if>';
+            $str .= '</div></div></div>';
+            break;         
         case 'select':
             
             if (!is_array($tvalue) && false !== strpos($name, 'CFG_THEMESTYLE')) {
@@ -1151,4 +1166,27 @@ function get_file_folder_List($pathname, $fileFlag = 0, $pattern = '*')
     }
 
     return $fileArray;
+}
+
+/**
+ * 截取指定长度的字符串
+ * @param string $str 字符串
+ * @param integer $num 截取长度
+ * @param boolean $flag 是否显示省略符
+ * @param string $sp 省略符
+ * @return string
+ */
+function str2sub($str, $num, $flag = 0, $sp = '...')
+{
+    if ($str == '' || $num <= 0) {
+        return $str;
+    }
+    $strlen = mb_strlen($str, 'utf-8');
+    $newstr = '';
+    $newstr .= mb_substr($str, 0, $num, 'utf-8'); //substr中国会乱码
+    if ($num < $strlen && $flag) {
+        $newstr .= $sp;
+    }
+
+    return $newstr;
 }

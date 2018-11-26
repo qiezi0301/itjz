@@ -7,7 +7,7 @@ class IndexController extends CommonController {
     public function index(){
     	
     	//轮播广告
-        $slider=M('slider')->order("sort desc")->select();
+        $slider=M('advDetail')->order("sort desc")->select();
 
         //取出所有分类
         $classs=M('classs')->select();

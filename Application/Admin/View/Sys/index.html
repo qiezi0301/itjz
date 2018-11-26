@@ -1,10 +1,4 @@
 <include file="Common/head"/>
-<link rel="stylesheet" type="text/css" href="__CSS__/plugins/webuploader/webuploader.css">
-<link rel="stylesheet" type="text/css" href="__CSS__/demo/webuploader-demo-single.css">
-<script>
-        var $path='{:U("Sys/uploadlogo")}';
-        var $js='__JS__/';
-</script>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
 
@@ -74,8 +68,71 @@
         </div>
         <!-- End Panel Other -->
     </div>
-    <script src="__JS__/jquery.min.js?v=2.1.4"></script>
-    <script src="__JS__/bootstrap.min.js?v=3.3.6"></script>
+    <include file="Common/javascripts"/>
 
 </body>
 </html>
+
+<script type="text/javascript">
+$(function () {
+    //缩略图上传
+
+    var litpic_tip = $(".litpic_tip");
+    var btn = $(".up-picture-btn span");
+    $("#fileupload").wrap("<form id='myupload' action='{:U('Public/upload')}' method='post' enctype='multipart/form-data'></form>");
+    $("#myupload").append('<input type="hidden" name="sfile" value="logo" />')
+    $("#fileupload").change(function(){
+        if($("#fileupload").val() == "") return;
+        $("#myupload").ajaxSubmit({
+            dataType:  'json',
+            beforeSend: function() {
+                $('#litpic_show').empty();
+                btn.html("上传中...");
+            },
+            success: function(data) {
+                if(data.state == 'SUCCESS'){
+                    var fileSize = parseFloat(data.info[0].size/1024).toFixed(2);
+                    litpic_tip.html(""+ data.info[0].name +" 上传成功("+ fileSize +"k)");
+                    var img = data.info[0].url;//原图                    
+                    $('#litpic_show').html("<img src='"+img+"' height='60'>");                    
+                    $("#litpic").val(img);
+                }else {
+                    litpic_tip.html(data.state);        
+                }           
+                    btn.html("添加图片");
+
+            },
+            error:function(xhr){
+                btn.html("上传失败");
+                litpic_tip.html(xhr);
+            }
+        });
+    });
+
+});
+
+$(function () {
+
+    $('#BrowerPicture').click(function(){
+        layer.open({
+            type: 2,
+            title: '系统提示',
+            shadeClose: true,
+            shade: 0.5,
+            area: ['670px', '350px'],
+            content: "{:U('Public/browseFile', array('stype' => 'ad'))}"
+        });
+    }); 
+
+});
+
+
+function selectFile(sfile) {
+    layer.msg('选择文件成功')
+    $("#litpic").val(sfile);
+    //$('#litpic_show').html("<img src='"+sfile+"' width='120'>");
+}
+
+
+
+</script>

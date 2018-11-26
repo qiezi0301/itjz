@@ -1,0 +1,107 @@
+<include file="Common/head"/>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+
+        <!-- Panel Other -->
+        <div class="ibox float-e-margins">
+            <div class="ibox-title">
+                <h5>{$type}</h5>
+                <div class="ibox-tools">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-wrench"></i>
+                    </a>
+                    <a class="close-link">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content">
+
+
+                <div class="row row-lg">
+                    <div class="col-lg-12 column">                                        
+                        <div class="btn-group hidden-xs" id="TableEventsToolbar" role="group">
+                            <button class="btn btn-default" type="button" onclick="goUrl('{:U('index')}')"><em class="glyphicon glyphicon-chevron-left"></em> 返回</button>
+                            <button class="btn btn-primary" type="button" onclick="goUrl('{:U('addDetail', array('aid' => $cate['id']))}')"><em class="glyphicon glyphicon-plus-sign"></em> 添加广告</button>
+                            <button class="btn btn-default" type="button" onclick="doGoSubmit('{:U('sort', array('aid' => $cate['id']))}','form_do')"><em class="glyphicon glyphicon-th-list"></em> 更新排序</button>
+                        </div>
+                        <form method="post" action="{:U('manage',array('pid'=>$pid))}" class="pull-right form-inline">
+                            <div class="input-group">
+                                
+                                <input type="text" class="form-control input-sm"  name="keyword" id="inputKeyword" placeholder="关键字">
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-sm btn-primary">
+                                        搜索
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 column">
+                         <form action="" method="post" id="form_do" name="form_do">
+                            <div class="table-responsive">
+                                <table class="table table-hover xyh-table-bordered-out">
+                                    <thead>
+                                        <tr class="active">
+                                            <th>编号</th>
+                                            <th>广告标题</th>
+                                            <th>开始时间</th>
+                                            <th>结束时间</th>
+                                            <th>排序</th>
+                                            <th>图片</th>
+                                            <th>状态</th>
+                                            <th class="text-right">操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <foreach name='vlist' item='v'>
+                                    <tr>
+                                        <td>{$v.id}</td>
+                                        <td>{$v.title}</td>
+                                        <td>{$v.starttime|date='Y-m-d H:i:s', ###}</td>   
+                                        <td>{$v.endtime|date='Y-m-d H:i:s', ###}</td>              
+                                        <td><input type="text" name="sortlist[{$v.id}]" value="{$v.sort}" id="sortlist" size="5" class="xyh-form-control"></td>     
+                                        <td><img style="height: 25px" src="{$v['content']}"></td>       
+                                        <td>
+                                            <empty name="v['status']">
+                                            <span class="label label-default">停用</span>
+                                            <else/>
+                                            <span class="label label-info">启用</span>
+                                            </empty>
+                                        </td>
+
+                                        <td class="text-right">
+                                            <a href="{:U('editDetail',array('id' => $v['id']), '')}" class="label label-success">编辑</a>
+                                            <a href="javascript:;" onclick="toConfirm('{:U('Adv/delDetail',array('id' => $v['id'], 'aid' => $v['aid']), '')}', '确实要删除吗？')" class="label label-danger">删除</a>
+                                
+                                        </td>
+                                    </tr>
+                                    </foreach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <div class="xyh-page">
+                            {$page}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Panel Other -->
+    </div>
+    <include file="Common/javascripts"/>
+
+</body>
+</html>
