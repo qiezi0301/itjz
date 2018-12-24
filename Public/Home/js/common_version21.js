@@ -781,7 +781,7 @@ function downloadZipLocal(id, mtype) {
             } else {
                 if (data.code == "wangpan") {
                     if (data.wangpan_url != "") {
-                        $("#download_result").html("百度网盘链接：<a href=" + data.wangpan_url + " target='_blank'>" + data.wangpan_url + "</a> 密码：" + data.wangpan_pwd + "，失效请联系管理员QQ 1556472052").show()
+                        $("#download_result").html("百度网盘链接：<a href=" + data.wangpan_url + " target='_blank'>" + data.wangpan_url + "</a> 密码：" + data.wangpan_pwd + "，失效请联系管理员QQ 188316065").show()
                     } else {
                         $("#download_result").html("该源码需要手动发货，请联系管理员QQ 188316065").show()
                     }

@@ -60,6 +60,7 @@
                                         <th>演示地址</th>
                                         <th>下载地址</th>
                                         <th>更新时间</th>
+                                        <th>下载积分</th>
                                         <th>推荐</th>
                                         <th>操作</th>
                                     </tr>
@@ -74,8 +75,8 @@
                                             <td>{$vo[click]}</td>
                                             <td><input class="col-sm-12" type="text" onblur="demos(this,{$vo[id]})" value="{$vo[demo]}"></td>
                                             <td><input class="col-sm-12" type="text" onblur="downs(this,{$vo[id]})" value="{$vo[wangpan_url]}"></td>
-                                            <td>{$vo[updated_at]|date='Y-m-d H:i:s',###}</td>
-                                            
+                                            <td>{$vo[updated_at]|date='m-d H:i',###}</td>
+                                            <td>{$vo[scores]}</td>
                                             <if condition="$vo[isindex] eq 0">
                                                 <td><a href="javascript:;" class="label label-danger" onclick="isindex(this,{$vo[id]},0)">否</a></td>
                                             <else/>

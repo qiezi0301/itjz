@@ -2,15 +2,20 @@
 namespace Home\Controller;
 
 class AjaxController extends CommonController{
+
 	public function downloadZipBox(){
         $uid = get_cookie('uid');
-
+        $money = 0 ;
+        if ($uid) {
+            $money = M('member')->where("id = $uid")->getField('score');
+        }
         // $data['is_original'] = I('is_original', 0, 'intval');//是不是原创
         // $data['points_type'] = I('points_type', 0, 'intval');//点数类型
         // $data['points'] = I('points', 0, 'intval');//下载点数
-        // $data['id'] = I('id', 0, 'intval');
+        // $id = I('id', 0, 'intval');
         // $data['mtype'] = I('mtype', 0, 'intval');
-        $money = M('member')->where("id = $uid")->getField('score');;
+
+        
 
         echo json_encode(array("code" => 200, "userid" => $uid, "money" => $money)); 
 

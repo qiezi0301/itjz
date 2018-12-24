@@ -1,5 +1,5 @@
 
-<div class="footer" id="footer" data-url="http://{$_SERVER['HTTP_HOST']}{$_SERVER['SCRIPT_NAME']}/" data-return="{$_SERVER['HTTP_REFERER']}" data-logout="{:U('Common/logout')}" data-id="{$data['id']}" data-mtype="{$pid}">
+<div class="footer" id="footer" data-url="/index.php/" data-return="{$_SERVER['HTTP_REFERER']}" data-logout="{:U('Common/logout')}" data-id="{$data['id']}" data-mtype="{$pid}">
     <div class="footer_main clearfix">
         <div class="friendly">
 <!--                     <div class="link_exchange">
@@ -24,7 +24,7 @@
                     <img alt="QQ在线客服" src="__IMG__/qq-chat.png">
                 </a> -->
                 <span class="contact_item">邮箱：{:C('CFG_EMAIL_LOGINNAME')}</span>
-                <span class="contact_item">手机：{:C('CFG_PHONE')}</span>
+                <!-- <span class="contact_item">手机：{:C('CFG_PHONE')}</span> -->
             </div>
         </div>
     </div>
