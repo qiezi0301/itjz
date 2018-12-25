@@ -102,22 +102,23 @@ class LoginController extends CommonController {
 		$data['avatar'] = $user['face'];
 		$data['is_collect'] = $user['username'];
 		$data['msg_num'] = $user['message'];
-		$data['userid'] = $user['id'];
+        $data['userid'] = $user['id'];
+		$data['score'] = C('LOGIN_SCORE');
 		//同一天内登录只加一次积分
 		if (date('Y-m-d', $user['logintime']) != date('Y-m-d', time())) {
 			
-			//记录积分操作
-			$log['uid'] = $user['id'];
-			$log['scoreinfo'] = '+'.C('LOGIN_SCORE');
-			$log['type'] = 1;
-			$log['addtime'] = time();
-            $log['title'] = '会员登录';
-            $log['url'] = htmlspecialchars($_SERVER['HTTP_REFERER']);
-			$log['descrip'] = '登录成功，积分+'.C('LOGIN_SCORE');
-			M('member_slog')->add($log);
-			M('member')->where(array('id' => $user['id']))->setInc('score',C('LOGIN_SCORE'));  //增加积分
-			
-			$data['tip'] = '登录成功！积分+'.C('LOGIN_SCORE');
+			// //记录积分操作
+			// $log['uid'] = $user['id'];
+			// $log['scoreinfo'] = '+'.C('LOGIN_SCORE');
+			// $log['type'] = 1;
+			// $log['addtime'] = time();
+   //          $log['title'] = '会员登录';
+   //          $log['url'] = htmlspecialchars($_SERVER['HTTP_REFERER']);
+			// $log['descrip'] = '登录成功，积分+'.C('LOGIN_SCORE');
+			// M('member_slog')->add($log);
+			// M('member')->where(array('id' => $user['id']))->setInc('score',$data['score']);  //增加积分
+			addPoints('会员登录', $data['score'], $data['userid'], "登录成功，积分+" . $data['score'], 1);
+			$data['tip'] = '登录成功！积分+'.$data['score'];
 		}else{
 			$data['tip'] = '登录成功！';
 		}

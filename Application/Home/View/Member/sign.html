@@ -1,135 +1,85 @@
 <include file="Common:head" />
 <body>
 <include file="Common:nav" />
-    <link href="__CSS__/member.css" rel="stylesheet" type="text/css" />
-    <div  class="container w clearfix">
-        <div class="member_right">
-            <include file="Member:left" />
+<link href="__CSS__/member.css" rel="stylesheet" type="text/css"/>
+<div class="container w clearfix">
+    <include file="Member:left" />
+    <div class="member_main" id='member_index'>
+        <div class="perInfo">
+            <div class="titleInfoBorder">
+                <span>会员签到</span>
+            </div>
         </div>
-<div class="member_main">
-    <div class="perInfo">
-        <div class="titleInfoBorder">
-            <span>会员签到</span>
+        <div class="tishi">
+            <p class="tishi_text">
+                <span class="tishi_span">签到奖励提示</span>
+            </p>
+            <p class="tishi_text">
+                <span class="tishi_span">      1：</span>
+                每天签到，获得 <b>{:C('SIGN_SCORE')}</b> 积分奖励
+            </p>
+            <p class="tishi_text">
+                <span class="tishi_span">      2：</span>
+                一个月内签到满 <b>20</b> 次，获得签到奖励 <b>200</b> 积分（立即到账，不是下个月发放，可查看积分记录）
+            </p>
         </div>
+        <table  class='table_sign'>
+            <thead>
+                <tr>
+                    <th>周日</th>
+                    <th>周一</th>
+                    <th>周二</th>
+                    <th>周三</th>
+                    <th>周四</th>
+                    <th>周五</th>
+                    <th>周六</th>
+                </tr>
+            </thead>
+            <tbody id="signrili">
+                <notempty name='blankArr'>
+                    <tr>
+                        <foreach name="blankArr" item="row">
+                            <td>-</td>
+                            <if condition="$row%7  eq $first">
+                            </tr>
+                        </if>
+                        </foreach>
+                </notempty>
+                <foreach name="days" item="row">
+                    <if condition="$row['key2']  eq 0"><tr></if>
+                    {$row['key']|getSign=###}
+                    <if condition="$row['key2']  eq 7"></tr></if>
+                </foreach>
+                <foreach name="other" item="row">
+                    <td>-</td>
+                </foreach>
+            </tbody>
+        </table>
+
     </div>
-    <div class="tishi">
-        <p class="tishi_text">
-            <span class="tishi_span">签到奖励提示</span>
-        </p>
-        <p class="tishi_text">
-            <span class="tishi_span">      1：</span>
-            每天签到，获得 <b>20</b> 积分奖励
-        </p>
-        <p class="tishi_text">
-            <span class="tishi_span">      2：</span>
-            一个月内签到满 <b>20</b> 次，获得签到奖励 <b>200</b> 积分（下个月5号之前发放签到奖励）
-        </p>
-        <p class="tishi_text">
-            <span class="tishi_span">      3：</span>
-            <b>VIP</b> 签到/评论 <b>双倍</b>积分
-        </p>
-    </div>
-    <table  class='table_sign' id="table_sign" data-key="81db21d177a8d51869629b2986501501">
-        <thead>
-            <tr>
-                <th>周日</th>
-                <th>周一</th>
-                <th>周二</th>
-                <th>周三</th>
-                <th>周四</th>
-                <th>周五</th>
-                <th>周六</th>
-            </tr>
-        </thead>
-        <tbody id="signrili">
-            <tr>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
-                <td style='background-color:#DCDCDC;'>
-                    <div align='right' valign='top'><span style='position:relative;right:20px;'>1</span>
-                    </div><div align='left'style='height:47px'>
-                    </div></td>                                <td style='background-color:#DCDCDC;'>
-                        <div align='right' valign='top'><span style='position:relative;right:20px;'>2</span>
-                        </div><div align='left'style='height:47px'>
-                        </div></td>                                <td style='background-color:#DCDCDC;'>
-                            <div align='right' valign='top'><span style='position:relative;right:20px;'>3</span>
-                            </div><div align='left'style='height:47px'>
-                            </div></td>                <tr>                <td  class='today' onclick='signDay($(this))'>
-                                <div align='right' valign='top'><span style='position:relative;right:20px;'>4</span></div>
-                                <div align='center'><a style='cursor:pointer;color:#ffffff;' >签到</a></div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                    <div align='right' valign='top'><span style='position:relative;right:20px;'>5</span>
-                                    </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                        <div align='right' valign='top'><span style='position:relative;right:20px;'>6</span>
-                                        </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                            <div align='right' valign='top'><span style='position:relative;right:20px;'>7</span>
-                                            </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                <div align='right' valign='top'><span style='position:relative;right:20px;'>8</span>
-                                                </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                    <div align='right' valign='top'><span style='position:relative;right:20px;'>9</span>
-                                                    </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                        <div align='right' valign='top'><span style='position:relative;right:20px;'>10</span>
-                                                        </div><div align='left'> </div><div align='left'> </div></td>                <tr>                <td style='background-color:lemonchiffon' valign='top'>
-                                                            <div align='right' valign='top'><span style='position:relative;right:20px;'>11</span>
-                                                            </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                <div align='right' valign='top'><span style='position:relative;right:20px;'>12</span>
-                                                                </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                    <div align='right' valign='top'><span style='position:relative;right:20px;'>13</span>
-                                                                    </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                        <div align='right' valign='top'><span style='position:relative;right:20px;'>14</span>
-                                                                        </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                            <div align='right' valign='top'><span style='position:relative;right:20px;'>15</span>
-                                                                            </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                <div align='right' valign='top'><span style='position:relative;right:20px;'>16</span>
-                                                                                </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                    <div align='right' valign='top'><span style='position:relative;right:20px;'>17</span>
-                                                                                    </div><div align='left'> </div><div align='left'> </div></td>                <tr>                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                        <div align='right' valign='top'><span style='position:relative;right:20px;'>18</span>
-                                                                                        </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                            <div align='right' valign='top'><span style='position:relative;right:20px;'>19</span>
-                                                                                            </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                <div align='right' valign='top'><span style='position:relative;right:20px;'>20</span>
-                                                                                                </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                    <div align='right' valign='top'><span style='position:relative;right:20px;'>21</span>
-                                                                                                    </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                        <div align='right' valign='top'><span style='position:relative;right:20px;'>22</span>
-                                                                                                        </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                            <div align='right' valign='top'><span style='position:relative;right:20px;'>23</span>
-                                                                                                            </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                                <div align='right' valign='top'><span style='position:relative;right:20px;'>24</span>
-                                                                                                                </div><div align='left'> </div><div align='left'> </div></td>                <tr>                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                                    <div align='right' valign='top'><span style='position:relative;right:20px;'>25</span>
-                                                                                                                    </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                                        <div align='right' valign='top'><span style='position:relative;right:20px;'>26</span>
-                                                                                                                        </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                                            <div align='right' valign='top'><span style='position:relative;right:20px;'>27</span>
-                                                                                                                            </div><div align='left'> </div><div align='left'> </div></td>                                <td style='background-color:lemonchiffon' valign='top'>
-                                                                                                                                <div align='right' valign='top'><span style='position:relative;right:20px;'>28</span>
-                                                                                                                                </div><div align='left'> </div><div align='left'> </div></td>                                        </tbody>
-                                                                                                                            </table>
-
-        <!--<div class="myspace-list">
-    <a class="myspace-plan " href="http://www.sucaihuo.com/member/info.html">
-        <span>主页</span>
-    </a>
-     <a class="myspace-note " href="http://www.sucaihuo.com/member/set.html">
-        <span>设置</span>
-    </a>
-    <a class="myspace-course " href="http://www.sucaihuo.com/member/comments.html">
-        <span>评论</span>
-    </a>
-
-    <a class="myspace-ques " href="">
-        <span>问答</span>
-    </a>
-
-    <a class="myspace-code " href="">
-        <span>代码</span>
-    </a>
-</div>-->
 </div>
-</div>
-
 <include file="Common:footer" />
 <include file="Member:mfooter" />
+<script type="text/javascript">
+    // alert('__IMG__');
+    function signDay(obj) {
+        $.post(getUrl("Ajax/signDay"), {}, function(data) {
+            if(data == -1){
+                alert("请登录！");return false;
+            }
+            var num = obj.find("span").text();
+            var td = "<td  style='background-color:navajowhite;navajowhite ;'>\n\
+                      <div align='right' valign='top'><span style='position:relative;right:20px;'>" + num + "</span></div>\n\
+                      <div align='left'><img width='35px' height='35px' src='" + '__IMG__' + "/cart_3.gif' alt='已签到' style='position:relative;left:10px;'>\n\
+                        已签到</div></td>";
+            obj.before(td);
+            obj.remove();
+            if (data > 0) {
+                alert("签到成功获取 " + data + " 积分");
+            } else {
+                alert("今天您已签到！");
+            }
+
+        })
+    }
+</script>

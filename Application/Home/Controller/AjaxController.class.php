@@ -246,4 +246,39 @@ class AjaxController extends CommonController{
         exit();
         
     }
+
+    //签到
+    public function signDay() {
+        $s_userid = get_cookie('uid');
+
+        if ($s_userid == '') {
+            echo -1;
+            exit;
+        }
+        $data['addtime'] = strtotime(date("Y-m-d 00:00:00"));
+        $data['uid'] = $s_userid;
+        $info = M('sign')->field("id")->where("addtime = " . $data['addtime'] . " AND uid = " . $data['uid'] . " AND status = 0")->find();
+
+        if (empty($info)) {
+            $data['money'] = C('SIGN_SCORE');
+            $data['status'] = 0;
+            $data['title'] = '签到';
+            $lastid = M('sign')->add($data);
+            if ($lastid > 0) {
+                addPoints($data['title'], $data['money'], $s_userid, "签到获得" . $data['money'] . "积分", 1);
+                //签到满20那天自动奖励200积分
+                $start=strtotime(date('Y-m-01 00:00:00'));
+                $end = strtotime(date('Y-m-d H:i:s'));
+                $where['addtime'] = array('between',array($start,$end));
+                $where['uid'] = $data['uid'];
+                $signcount = M('sign')->where($where)->count();
+                if ($signcount == 20 ) {
+                    addPoints("签到满20天奖励", 200, $data['uid'], "签到奖励" . 200 . "积分", 1);
+                }
+                echo $data['money'];
+            }
+        } else {
+            echo -1;
+        }
+    }
 }
